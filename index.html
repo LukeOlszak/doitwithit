@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DoItWithIT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0d1e30, #1f3b5c);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #00bfff;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 1.2rem;
+    }
+
+    .network {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 4rem auto;
+      height: 600px;
+    }
+
+    .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #007acc;
+      border-radius: 50%;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
+      border: 3px solid #fff;
+    }
+
+    .circle {
+      position: absolute;
+      background-color: #003366;
+      color: #fff;
+      border-radius: 50%;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      border: 2px solid #00bfff;
+    }
+
+    .circle:hover {
+      transform: scale(1.3);
+      background-color: #0055a5;
+      z-index: 10;
+    }
+
+    .circle:nth-child(2) { top: 5%; left: 45%; }
+    .circle:nth-child(3) { top: 20%; left: 80%; }
+    .circle:nth-child(4) { top: 75%; left: 80%; }
+    .circle:nth-child(5) { top: 85%; left: 45%; }
+    .circle:nth-child(6) { top: 75%; left: 10%; }
+    .circle:nth-child(7) { top: 20%; left: 10%; }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #001d3d;
+      color: #ccc;
+    }
+
+    a {
+      color: #00bfff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>DoItWithIT</h1>
+    <p>Realne wsparcie IT dla domu i firm</p>
+  </header>
+
+  <div class="network">
+    <div class="center">DoItWithIT</div>
+    <div class="circle">Zdalna pomoc</div>
+    <div class="circle">Instalacja systemu</div>
+    <div class="circle">Konfiguracja sieci</div>
+    <div class="circle">Instalacja peryferiów</div>
+    <div class="circle">Obsługa domowa</div>
+    <div class="circle">Obsługa firmowa</div>
+  </div>
+
+  <footer>
+    <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123456789">+48 123 456 789</a></p>
+    <p>&copy; 2025 DoItWithIT</p>
+  </footer>
+
+</body>
+</html>
