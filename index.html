@@ -50,6 +50,7 @@
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
+      z-index: 5;
     }
 
     .circle {
@@ -62,20 +63,19 @@
       transition: transform 0.3s ease, background-color 0.3s ease;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
     }
 
     .circle:hover {
-      transform: scale(1.3);
+      transform: scale(1.3) translate(-50%, -50%);
       background-color: #0055a5;
       z-index: 10;
     }
-
-    .circle:nth-child(2) { top: 5%; left: 45%; }
-    .circle:nth-child(3) { top: 20%; left: 80%; }
-    .circle:nth-child(4) { top: 75%; left: 80%; }
-    .circle:nth-child(5) { top: 85%; left: 45%; }
-    .circle:nth-child(6) { top: 75%; left: 10%; }
-    .circle:nth-child(7) { top: 20%; left: 10%; }
 
     footer {
       text-align: center;
@@ -111,6 +111,23 @@
     <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
+
+  <script>
+    const circles = document.querySelectorAll('.network .circle:not(.center)');
+    const centerX = 400; // połowa szerokości kontenera (max-width: 800px)
+    const centerY = 300; // połowa wysokości kontenera (height: 600px)
+    const radius = 220;  // promień okręgu
+
+    const angleStep = (2 * Math.PI) / circles.length;
+
+    circles.forEach((circle, i) => {
+      const angle = i * angleStep;
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle);
+      circle.style.left = `${x}px`;
+      circle.style.top = `${y}px`;
+    });
+  </script>
 
 </body>
 </html>
