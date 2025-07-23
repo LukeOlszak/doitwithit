@@ -15,26 +15,26 @@
 
     header {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 0.5rem;
       color: #00bfff;
     }
 
     p {
       color: #ccc;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     .network {
       position: relative;
       width: 100%;
       max-width: 800px;
-      margin: 4rem auto;
-      height: 600px;
+      margin: 3rem auto;
+      aspect-ratio: 1 / 1;
     }
 
     .center {
@@ -44,13 +44,19 @@
       transform: translate(-50%, -50%);
       background-color: #007acc;
       border-radius: 50%;
-      padding: 2rem;
+      padding: 1.5rem;
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
       z-index: 5;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .circle {
@@ -59,34 +65,60 @@
       color: #fff;
       border-radius: 50%;
       padding: 1rem;
-      text-align: center;
       transition: transform 0.3s ease, background-color 0.3s ease;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
-      width: 140px;
-      height: 140px;
+      width: 100px;
+      height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
+      font-size: 0.9rem;
       transform: translate(-50%, -50%);
     }
 
     .circle:hover {
-      transform: scale(1.3) translate(-50%, -50%);
+      transform: scale(1.2) translate(-50%, -50%);
       background-color: #0055a5;
       z-index: 10;
     }
 
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       background-color: #001d3d;
       color: #ccc;
+      font-size: 0.9rem;
     }
 
     a {
       color: #00bfff;
       text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .circle {
+        width: 80px;
+        height: 80px;
+        font-size: 0.75rem;
+        padding: 0.5rem;
+      }
+
+      .center {
+        width: 100px;
+        height: 100px;
+        font-size: 1rem;
+        padding: 1rem;
+      }
     }
   </style>
 </head>
@@ -113,20 +145,28 @@
   </footer>
 
   <script>
-    const circles = document.querySelectorAll('.network .circle:not(.center)');
-    const centerX = 400; // połowa szerokości kontenera (max-width: 800px)
-    const centerY = 300; // połowa wysokości kontenera (height: 600px)
-    const radius = 220;  // promień okręgu
+    function positionCircles() {
+      const network = document.querySelector('.network');
+      const circles = document.querySelectorAll('.network .circle:not(.center)');
 
-    const angleStep = (2 * Math.PI) / circles.length;
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const radius = Math.min(centerX, centerY) - 80; // odstęp od krawędzi
 
-    circles.forEach((circle, i) => {
-      const angle = i * angleStep;
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-      circle.style.left = `${x}px`;
-      circle.style.top = `${y}px`;
-    });
+      const angleStep = (2 * Math.PI) / circles.length;
+
+      circles.forEach((circle, i) => {
+        const angle = i * angleStep;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+      });
+    }
+
+    window.addEventListener('load', positionCircles);
+    window.addEventListener('resize', positionCircles);
   </script>
 
 </body>
