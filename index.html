@@ -15,13 +15,35 @@
 
     header {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1rem 1rem;
+      position: relative;
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
       color: #00bfff;
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .lang-switch button {
+      background: none;
+      border: 1px solid #00bfff;
+      color: #00bfff;
+      padding: 0.4rem 0.8rem;
+      margin-left: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-switch button.active {
+      background-color: #00bfff;
+      color: #001d3d;
     }
 
     p {
@@ -45,7 +67,6 @@
       background-color: #007acc;
       border-radius: 50%;
       padding: 1.5rem;
-      text-align: center;
       font-size: 1.2rem;
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
@@ -125,35 +146,87 @@
 <body>
 
   <header>
-    <h1>DoItWithIT</h1>
-    <p>Realne wsparcie IT dla domu i małych firm</p>
+    <div class="lang-switch">
+      <button id="btn-pl" class="active">PL</button>
+      <button id="btn-en">EN</button>
+    </div>
+    <h1 id="site-title">DoItWithIT</h1>
+    <p id="site-desc">Realne wsparcie IT dla domu i małych firm</p>
   </header>
 
   <div class="network">
     <div class="center">DoItWithIT</div>
-    <div class="circle">Zdalna pomoc</div>
-    <div class="circle">Instalacja systemu</div>
-    <div class="circle">Konfiguracja sieci</div>
-    <div class="circle">Instalacja peryferiów</div>
-    <div class="circle">Obsługa domowa</div>
-    <div class="circle">Obsługa firmowa</div>
+    <div class="circle" data-key="remote">Zdalna pomoc</div>
+    <div class="circle" data-key="install">Instalacja systemu</div>
+    <div class="circle" data-key="network">Konfiguracja sieci</div>
+    <div class="circle" data-key="peripherals">Instalacja peryferiów</div>
+    <div class="circle" data-key="home">Obsługa domowa</div>
+    <div class="circle" data-key="business">Obsługa firmowa</div>
   </div>
 
   <footer>
-    <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
+    <p id="contact">Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
 
   <script>
+    const langButtons = {
+      pl: document.getElementById("btn-pl"),
+      en: document.getElementById("btn-en")
+    };
+
+    const content = {
+      pl: {
+        siteDesc: "Realne wsparcie IT dla domu i małych firm",
+        contact: 'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Zdalna pomoc",
+          install: "Instalacja systemu",
+          network: "Konfiguracja sieci",
+          peripherals: "Instalacja peryferiów",
+          home: "Obsługa domowa",
+          business: "Obsługa firmowa"
+        }
+      },
+      en: {
+        siteDesc: "Reliable IT support for home and small business",
+        contact: 'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Remote help",
+          install: "System install",
+          network: "Network setup",
+          peripherals: "Peripherals setup",
+          home: "Home support",
+          business: "Business support"
+        }
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById("site-desc").textContent = content[lang].siteDesc;
+      document.getElementById("contact").innerHTML = content[lang].contact;
+
+      document.querySelectorAll(".circle").forEach(el => {
+        const key = el.dataset.key;
+        el.textContent = content[lang].circles[key] || "";
+      });
+
+      // Update button styles
+      Object.keys(langButtons).forEach(l => {
+        langButtons[l].classList.toggle("active", l === lang);
+      });
+    }
+
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+
     function positionCircles() {
       const network = document.querySelector('.network');
       const circles = document.querySelectorAll('.network .circle:not(.center)');
-
       const rect = network.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const radius = Math.min(centerX, centerY) - 80; // odstęp od krawędzi
-
+      const radius = Math.min(centerX, centerY) - 80;
       const angleStep = (2 * Math.PI) / circles.length;
 
       circles.forEach((circle, i) => {
@@ -165,7 +238,10 @@
       });
     }
 
-    window.addEventListener('load', positionCircles);
+    window.addEventListener('load', () => {
+      positionCircles();
+      setLanguage('pl'); // default
+    });
     window.addEventListener('resize', positionCircles);
   </script>
 
