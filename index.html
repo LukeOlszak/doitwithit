@@ -10,151 +10,146 @@
       font-family: 'Segoe UI', sans-serif;
       background: radial-gradient(circle at top, #001e2b, #000c18);
       color: #aef1ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
+      overflow-x: hidden;
     }
 
-    .lang-switch {
+    .language-toggle {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: 0.5rem;
+      top: 20px;
+      right: 20px;
     }
 
-    .lang-switch button {
+    .language-toggle button {
       background: transparent;
       border: 1px solid #00bfff;
       color: #00bfff;
-      padding: 0.3rem 0.6rem;
+      margin-left: 5px;
+      padding: 5px 10px;
       border-radius: 5px;
       cursor: pointer;
     }
 
-    h1 {
-      font-size: 2.8rem;
+    .header {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .header h1 {
+      font-size: 3rem;
       color: #00bfff;
-      margin: 1rem 0 0.5rem;
+      margin-bottom: 10px;
     }
 
-    .subtitle {
+    .header p {
       font-size: 1.2rem;
-      color: #dffaff;
-      margin-bottom: 2rem;
-      text-align: center;
+      color: #c5eaff;
     }
 
-    .services {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      max-width: 1000px;
-      gap: 2rem;
+    .circle-container {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      margin: 40px auto;
     }
 
-    .service {
-      width: 130px;
-      text-align: center;
-    }
-
-    .service svg {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 0.5rem;
-      fill: #00bfff;
-    }
-
-    .circle-center {
+    .center-circle {
       width: 160px;
       height: 160px;
+      background-color: transparent;
       border: 2px solid #00bfff;
       border-radius: 50%;
+      color: #00bfff;
+      font-size: 1.2rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 2rem auto;
-      font-size: 1.2rem;
-      color: #00bfff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
 
-    @media (max-width: 768px) {
-      .service {
-        width: 100px;
-      }
-      .circle-center {
-        width: 120px;
-        height: 120px;
-        font-size: 1rem;
-      }
+    .service {
+      position: absolute;
+      width: 140px;
+      text-align: center;
+      color: #c5eaff;
     }
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .subtitle {
-        font-size: 1rem;
+    .service svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+      fill: #00bfff;
+    }
+
+    .service:nth-child(1) { top: 0%; left: 50%; transform: translate(-50%, 0); } /* Zdalna pomoc */
+    .service:nth-child(2) { top: 20%; left: 85%; transform: translate(-50%, -50%); } /* Instalacja systemu */
+    .service:nth-child(3) { top: 50%; left: 100%; transform: translate(-50%, -50%); } /* Peryferia */
+    .service:nth-child(4) { top: 80%; left: 85%; transform: translate(-50%, -50%); } /* Obsługa firmowa */
+    .service:nth-child(5) { top: 100%; left: 50%; transform: translate(-50%, -100%); } /* Spawanie światłowodów */
+    .service:nth-child(6) { top: 80%; left: 15%; transform: translate(-50%, -50%); } /* Sieci strukturalne */
+    .service:nth-child(7) { top: 50%; left: 0%; transform: translate(-50%, -50%); } /* Obsługa domowa */
+
+    @media (max-width: 700px) {
+      .circle-container {
+        width: 100%;
+        height: 100%;
+        transform: scale(0.8);
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="lang-switch">
+  <div class="language-toggle">
     <button>PL</button>
     <button>EN</button>
   </div>
 
-  <h1>DoItWithIT</h1>
-  <div class="subtitle">Realne wsparcie IT dla domu i małych firm</div>
+  <div class="header">
+    <h1>DoItWithIT</h1>
+    <p>Realne wsparcie IT dla domu i małych firm</p>
+  </div>
 
-  <div class="services">
+  <div class="circle-container">
     <div class="service">
-      <!-- Zdalna pomoc -->
       <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 10.9 12 11.5 12 13h-2v-.5c0-.8.45-1.5 1.17-1.93l1.24-1.02A2 2 0 1010 7H8a4 4 0 118.07 2.25z"/></svg>
       <div>Zdalna pomoc</div>
     </div>
 
     <div class="service">
-      <!-- Instalacja systemu -->
       <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 4h16v2H4V8zm0 4h10v2H4v-2zm0 4h10v2H4v-2z"/></svg>
       <div>Instalacja systemu<br>i oprogramowania</div>
     </div>
 
     <div class="service">
-      <!-- Instalacja peryferiów -->
       <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6V6zm2 2v8h8V8H8zm-4 0h2v8H4V8zm16 0v8h-2V8h2z"/></svg>
-      <div>Instalacja<br>peryferiów</div>
+      <div>Instalacja peryferiów</div>
     </div>
 
     <div class="service">
-      <!-- Obsługa firmowa -->
       <svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-6 8v-2a4 4 0 014-4h4a4 4 0 014 4v2H6z"/></svg>
       <div>Obsługa firmowa</div>
     </div>
 
     <div class="service">
-      <!-- Spawanie światłowodów -->
       <svg viewBox="0 0 24 24"><path d="M12 2l4 4h-3v6h-2V6H8l4-4zm-6 8v10h12V10H6z"/></svg>
-      <div>Spawanie<br>światłowodów</div>
+      <div>Spawanie światłowodów</div>
     </div>
 
     <div class="service">
-      <!-- Instalacje sieci strukturalnych -->
       <svg viewBox="0 0 24 24"><path d="M12 2l10 9h-3v9H5v-9H2l10-9z"/></svg>
-      <div>Instalacje sieci<br>strukturalnych</div>
+      <div>Instalacje sieci strukturalnych</div>
     </div>
 
     <div class="service">
-      <!-- Obsługa domowa -->
       <svg viewBox="0 0 24 24"><path d="M12 3l10 9h-4v9h-4v-6H10v6H6v-9H2l10-9z"/></svg>
       <div>Obsługa domowa</div>
     </div>
-  </div>
 
-  <div class="circle-center">DoItWithIT</div>
+    <div class="center-circle">DoItWithIT</div>
+  </div>
 
 </body>
 </html>
