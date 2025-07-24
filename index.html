@@ -97,11 +97,6 @@
       text-align: center;
       font-size: 0.85rem;
       transform: translate(-50%, -50%);
-      z-index: 5; /* Dodany z-index */
-    }
-
-    .circle img {
-      z-index: 10; /* Upewnij się, że obrazek jest na wierzchu */
     }
 
     .circle:hover {
@@ -177,6 +172,7 @@
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA..." alt="Obsługa firmowa">
       Obsługa firmowa
     </div>
+     <img src="http://doitwith.it/obsluga_domowa.png" alt="Obsługa domowa">
     <div class="circle" data-key="home">
       <img src="http://doitwith.it/obsluga_domowa.png" alt="Obsługa domowa">
       Obsługa domowa
@@ -199,6 +195,86 @@
     <p id="contact">Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
+
+  <script>
+    const langButtons = {
+      pl: document.getElementById("btn-pl"),
+      en: document.getElementById("btn-en")
+    };
+
+    const content = {
+      pl: {
+        siteDesc: "Realne wsparcie IT dla domu i małych firm",
+        contact: 'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Zdalna pomoc",
+          install: "Instalacja systemu",
+          network: "Konfiguracja sieci",
+          peripherals: "Instalacja peryferiów",
+          home: "Obsługa domowa",
+          business: "Obsługa firmowa",
+          structural: "Instalacje strukturalnych sieci teleinformatycznych",
+          fiber: "Spawanie i naprawa światłowodów"
+        }
+      },
+      en: {
+        siteDesc: "Reliable IT support for home and small business",
+        contact: 'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Remote help",
+          install: "System installation",
+          network: "Network configuration",
+          peripherals: "Peripherals setup",
+          home: "Home support",
+          business: "Business support",
+          structural: "Structured cabling installation",
+          fiber: "Fiber splicing and repair"
+        }
+      }
+    };
+
+    function setLanguage(lang) {
+      document.getElementById("site-desc").textContent = content[lang].siteDesc;
+      document.getElementById("contact").innerHTML = content[lang].contact;
+
+      document.querySelectorAll(".circle").forEach(el => {
+        const key = el.dataset.key;
+        el.textContent = content[lang].circles[key] || "";
+      });
+
+      Object.keys(langButtons).forEach(l => {
+        langButtons[l].classList.toggle("active", l === lang);
+      });
+    }
+
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+
+    function positionCircles() {
+      const network = document.querySelector('.network');
+      const circles = document.querySelectorAll('.network .circle:not(.center)');
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const radius = Math.min(centerX, centerY) - 90;
+      const angleStep = (2 * Math.PI) / circles.length;
+
+      circles.forEach((circle, i) => {
+        const angle = i * angleStep;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        circle.style.left = ${x}px;
+        circle.style.top = ${y}px;
+      });
+    }
+
+    window.addEventListener('load', () => {
+      positionCircles();
+      setLanguage('pl');
+    });
+
+    window.addEventListener('resize', positionCircles);
+  </script>
 
 </body>
 </html>
