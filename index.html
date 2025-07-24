@@ -1,163 +1,47 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DoItWithIT</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #0d1e30, #1f3b5c);
-      color: #fff;
-      overflow-x: hidden;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem;
-      position: relative;
-    }
-
-    .lang-switch {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-
-    .lang-switch button {
-      background: none;
-      border: 1px solid #00bfff;
-      color: #00bfff;
-      padding: 0.4rem 0.8rem;
-      cursor: pointer;
-      margin-left: 0.5rem;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-      color: #00bfff;
-    }
-
-    p {
-      color: #ccc;
-      font-size: 1.2rem;
-    }
-
-    .network {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      margin: 4rem auto;
-      height: 600px;
-    }
-
-    .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #007acc;
-      border-radius: 50%;
-      padding: 2rem;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
-      border: 3px solid #fff;
-      width: 140px;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .circle {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      background-color: #003366;
-      color: #fff;
-      border-radius: 50%;
-      text-align: center;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-      border: 2px solid #00bfff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem;
-    }
-
-    .circle:hover {
-      transform: scale(1.2);
-      background-color: #0055a5;
-      z-index: 10;
-    }
-
-    .circle svg {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 0.3rem;
-      fill: #00bfff;
-    }
-
-    /* Okrągłe rozmieszczenie (8 usług) */
-    .circle:nth-child(2)  { top: 0%;   left: 50%; transform: translate(-50%, 0); }
-    .circle:nth-child(3)  { top: 18%;  left: 85%; transform: translate(-50%, -50%); }
-    .circle:nth-child(4)  { top: 50%;  left: 100%; transform: translate(-100%, -50%); }
-    .circle:nth-child(5)  { top: 82%;  left: 85%; transform: translate(-50%, -50%); }
-    .circle:nth-child(6)  { top: 100%; left: 50%; transform: translate(-50%, -100%); }
-    .circle:nth-child(7)  { top: 82%;  left: 15%; transform: translate(-50%, -50%); }
-    .circle:nth-child(8)  { top: 50%;  left: 0%; transform: translate(0, -50%); }
-    .circle:nth-child(9)  { top: 18%;  left: 15%; transform: translate(-50%, -50%); }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: #001d3d;
-      color: #ccc;
-    }
-
-    a {
-      color: #00bfff;
-      text-decoration: none;
-    }
-
-    @media (max-width: 768px) {
-      .network {
-        height: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        padding-bottom: 2rem;
-      }
-
-      .center {
-        position: static;
-        transform: none;
-        margin-bottom: 1rem;
-      }
-
-      .circle {
-        position: static;
-        transform: none !important;
-      }
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:linear-gradient(to bottom,#0d1e30,#1f3b5c); color:#fff; overflow-x:hidden; }
+    header { text-align:center; padding:2rem; position:relative; }
+    .lang-switch { position:absolute; top:1rem; right:1rem; }
+    .lang-switch button { background:none; border:1px solid #00bfff; color:#00bfff; padding:0.4rem 0.8rem; margin-left:0.5rem; border-radius:5px; cursor:pointer; }
+    .lang-switch button.active { background:#00bfff; color:#001d3d; }
+    h1 { font-size:3rem; margin-bottom:.5rem; color:#00bfff; }
+    #subtitle { font-size:1.2rem; color:#ccc; }
+    .network { position:relative; width:100%; max-width:800px; margin:4rem auto; height:600px; }
+    .center { position:absolute; top:50%;left:50%;transform:translate(-50%,-50%);background:#007acc;border-radius:50%;width:140px;height:140px;padding:2rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:bold;box-shadow:0 0 30px rgba(0,191,255,0.4);border:3px solid #fff; }
+    .circle { position:absolute;width:120px;height:120px;background:#003366;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.5rem;border:2px solid #00bfff;transition:transform .3s ease,background .3s ease;box-shadow:0 0 10px rgba(255,255,255,0.1); }
+    .circle:hover { transform:scale(1.1); background:#0055a5; z-index:10; }
+    .circle svg { width:32px;height:32px; margin-bottom:.3rem; fill:#00bfff; animation: pulse 2s infinite; }
+    .circle span { text-align:center; font-size:.85rem; }
+    @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.1); } }
+    /* Rozmieszczenie 8 kółek */
+    .circle:nth-child(2){top:0;left:50%;transform:translate(-50%,0);}
+    .circle:nth-child(3){top:18%;left:85%;transform:translate(-50%,-50%);}
+    .circle:nth-child(4){top:50%;left:100%;transform:translate(-100%,-50%);}
+    .circle:nth-child(5){top:82%;left:85%;transform:translate(-50%,-50%);}
+    .circle:nth-child(6){top:100%;left:50%;transform:translate(-50%,-100%);}
+    .circle:nth-child(7){top:82%;left:15%;transform:translate(-50%,-50%);}
+    .circle:nth-child(8){top:50%;left:0;transform:translate(0,-50%);}
+    .circle:nth-child(9){top:18%;left:15%;transform:translate(-50%,-50%);}
+    footer { text-align:center; padding:2rem; background:#001d3d; color:#ccc; }
+    a { color:#00bfff; text-decoration:none; }
+    @media(max-width:768px){
+      .network{height:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;padding-bottom:2rem;}
+      .center, .circle { position:static !important; transform:none !important; }
     }
   </style>
 </head>
 <body>
-
   <header>
     <h1>DoItWithIT</h1>
     <p id="subtitle">Realne wsparcie IT dla domu i małych firm</p>
     <div class="lang-switch">
-      <button onclick="switchLang('pl')">PL</button>
+      <button onclick="switchLang('pl')" class="active">PL</button>
       <button onclick="switchLang('en')">EN</button>
     </div>
   </header>
@@ -165,67 +49,89 @@
   <div class="network">
     <div class="center">DoItWithIT</div>
 
+    <!-- Zdalna pomoc -->
     <div class="circle" data-pl="Zdalna pomoc" data-en="Remote help">
-      <svg viewBox="0 0 24 24"><path d="M9 6h13v2H9V6zm0 5h13v2H9v-2zm0 5h13v2H9v-2zM4 6H2v2h2V6zm0 5H2v2h2v-2zm0 5H2v2h2v-2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
+        10-4.48 10-10S17.52 2 12 2zm-1 14.5v-1.1c-2.83-.48-5-2.94-5-5.4
+        0-1.5.63-2.86 1.66-3.82L9 8v6l2 .5z"/></svg>
       <span>Zdalna pomoc</span>
     </div>
 
-    <div class="circle" data-pl="Instalacja systemu" data-en="System installation">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 6h10v2H4v-2zm0 6h16v2H4v-2zm0 4h16v2H4v-2z"/></svg>
+    <!-- Instalacja systemu -->
+    <div class="circle" data-pl="Instalacja systemu" data-en="System install">
+      <svg viewBox="0 0 24 24"><path d="M9 4H7v2h2V4zm0 4H7v2h2V8zm0 4H7v2h2v-2zm0
+        4H7v2h2v-2zM11 4h6v2h-6V4zm0 4h6v2h-6V8zm0 4h6v2h-6v-2zm0 4h6v2h-6v-2z"/></svg>
       <span>Instalacja systemu</span>
     </div>
 
+    <!-- Konfiguracja sieci -->
     <div class="circle" data-pl="Konfiguracja sieci" data-en="Network setup">
-      <svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 0 1 8.95 8H20a8 8 0 1 0 0 4h.95A9 9 0 1 1 12 2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 4C8.13 4 5 7.13 5 11c0 3.54
+        2.61 6.48 6 6.92V20h2v-2.08c3.39-.44 6-3.38
+        6-6.92 0-3.87-3.13-7-7-7zm0 12
+        c-2.76 0-5-2.24-5-5s2.24-5 5-5
+        5 2.24 5 5-2.24 5-5 5z"/></svg>
       <span>Konfiguracja sieci</span>
     </div>
 
+    <!-- Instalacja peryferiów -->
     <div class="circle" data-pl="Instalacja peryferiów" data-en="Peripheral setup">
-      <svg viewBox="0 0 24 24"><path d="M6 4h12v2H6V4zm0 14h12v2H6v-2zm5-10h2v6h-2v-6z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3z"/></svg>
       <span>Instalacja peryferiów</span>
     </div>
 
+    <!-- Obsługa domowa -->
     <div class="circle" data-pl="Obsługa domowa" data-en="Home support">
-      <svg viewBox="0 0 24 24"><path d="M12 3l9 7h-3v9H6v-9H3l9-7z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12
+        3 2 12h3v8z"/></svg>
       <span>Obsługa domowa</span>
     </div>
 
+    <!-- Obsługa firmowa -->
     <div class="circle" data-pl="Obsługa firmowa" data-en="Business support">
-      <svg viewBox="0 0 24 24"><path d="M3 13h18v2H3v-2zm0-4h18v2H3V9zm0-4h18v2H3V5z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M3 13h18v2H3v-2zm0-4h18v2H3V9zm0
+        -4h18v2H3V5z"/></svg>
       <span>Obsługa firmowa</span>
     </div>
 
+    <!-- Sieci strukturalne -->
     <div class="circle" data-pl="Instalacje sieci strukturalnych" data-en="Structured cabling">
-      <svg viewBox="0 0 24 24"><path d="M2 6h20v2H2V6zm0 5h20v2H2v-2zm0 5h20v2H2v-2z"/></svg>
-      <span>Instalacje sieci strukturalnych</span>
+      <svg viewBox="0 0 24 24"><path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0
+        5h16v2H4v-2z"/></svg>
+      <span>Sieci strukturalne</span>
     </div>
 
-    <div class="circle" data-pl="Spawanie światłowodów" data-en="Fiber fusion & repair">
-      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20z"/></svg>
+    <!-- Spawanie i naprawa światłowodów -->
+    <div class="circle" data-pl="Spawanie światłowodów" data-en="Fiber repair">
+      <svg viewBox="0 0 24 24"><path d="M12 4C7 4 3 8
+        3 13s4 9 9 9 9-4 9-9-4-9-9-9zm0
+        16c-3.87 0-7-3.13-7-7s3.13-7
+        7-7 7 3.13 7 7-3.13 7-7 7z"/><circle cx="12" cy="13" r="3"/></svg>
       <span>Spawanie światłowodów</span>
     </div>
   </div>
 
   <footer>
-    <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
+    <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> |
+    Tel: <a href="tel:+48123">+48 123</a></p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
 
   <script>
     function switchLang(lang) {
-      const subtitle = document.getElementById('subtitle');
-      subtitle.innerText = lang === 'pl'
-        ? 'Realne wsparcie IT dla domu i małych firm'
-        : 'Real IT support for home and small business';
+      document.getElementById('subtitle').innerText =
+        (lang === 'pl')
+          ? 'Realne wsparcie IT dla domu i małych firm'
+          : 'Real IT support for home and small business';
 
-      document.querySelectorAll('.circle').forEach(el => {
-        const span = el.querySelector('span');
-        if (span && el.dataset[lang]) {
-          span.innerText = el.dataset[lang];
-        }
+      document.querySelectorAll('.circle').forEach(c => {
+        c.querySelector('span').innerText = c.getAttribute('data-' + lang);
+      });
+
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
       });
     }
   </script>
-
 </body>
 </html>
