@@ -15,7 +15,8 @@
 
     header {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1rem 1rem;
+      position: relative;
     }
 
     h1 {
@@ -24,33 +25,38 @@
       color: #00bfff;
     }
 
-    p {
-      color: #ccc;
-      font-size: 1.2rem;
-    }
-
-    .language-toggle {
+    .lang-switch {
       position: absolute;
       top: 1rem;
       right: 1rem;
     }
 
-    .language-toggle button {
+    .lang-switch button {
+      background: none;
+      border: 1px solid #00bfff;
+      color: #00bfff;
+      padding: 0.4rem 0.8rem;
       margin-left: 0.5rem;
-      padding: 0.3rem 0.6rem;
-      border: none;
-      background-color: #003366;
-      color: #fff;
+      border-radius: 5px;
       cursor: pointer;
-      border-radius: 4px;
+    }
+
+    .lang-switch button.active {
+      background-color: #00bfff;
+      color: #001d3d;
+    }
+
+    p {
+      color: #ccc;
+      font-size: 1.1rem;
     }
 
     .network {
       position: relative;
       width: 100%;
-      max-width: 1000px;
-      margin: 4rem auto;
-      height: 700px;
+      max-width: 800px;
+      margin: 3rem auto;
+      aspect-ratio: 1 / 1;
     }
 
     .center {
@@ -60,13 +66,18 @@
       transform: translate(-50%, -50%);
       background-color: #007acc;
       border-radius: 50%;
-      padding: 2rem;
-      text-align: center;
-      font-size: 1.5rem;
+      padding: 1.5rem;
+      font-size: 1.2rem;
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
       z-index: 5;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .circle {
@@ -74,48 +85,32 @@
       background-color: #003366;
       color: #fff;
       border-radius: 50%;
-      width: 130px;
-      height: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
+      padding: 1rem;
       transition: transform 0.3s ease, background-color 0.3s ease;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
+      width: 110px;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      transform: translate(-50%, -50%);
     }
 
     .circle:hover {
-      transform: scale(1.2);
+      transform: scale(1.2) translate(-50%, -50%);
       background-color: #0055a5;
       z-index: 10;
     }
 
-    .circle svg {
-      margin-bottom: 0.3rem;
-    }
-
-    .circle span {
-      font-size: 0.9rem;
-      color: #fff;
-    }
-
-    .circle:nth-child(2)  { top: 5%;   left: 45%; }
-    .circle:nth-child(3)  { top: 20%;  left: 75%; }
-    .circle:nth-child(4)  { top: 50%;  left: 90%; }
-    .circle:nth-child(5)  { top: 80%;  left: 75%; }
-    .circle:nth-child(6)  { top: 85%;  left: 45%; }
-    .circle:nth-child(7)  { top: 80%;  left: 15%; }
-    .circle:nth-child(8)  { top: 50%;  left: 0%; }
-    .circle:nth-child(9)  { top: 20%;  left: 15%; }
-    .circle:nth-child(10) { top: 35%;  left: 50%; }
-
     footer {
       text-align: center;
-      padding: 2rem;
+      padding: 2rem 1rem;
       background-color: #001d3d;
       color: #ccc;
+      font-size: 0.9rem;
     }
 
     a {
@@ -123,102 +118,136 @@
       text-decoration: none;
     }
 
-    @media (max-width: 768px) {
-      .network {
-        height: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        padding: 2rem;
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
       }
 
       .circle {
-        position: static !important;
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
+        font-size: 0.75rem;
+        padding: 0.5rem;
       }
 
       .center {
-        position: static;
-        transform: none;
-        margin-bottom: 2rem;
+        width: 100px;
+        height: 100px;
+        font-size: 1rem;
+        padding: 1rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="language-toggle">
-    <button onclick="setLanguage('pl')">PL</button>
-    <button onclick="setLanguage('en')">EN</button>
-  </div>
-
   <header>
-    <h1>DoItWithIT</h1>
-    <p>Realne wsparcie IT dla domu i małych firm</p>
+    <div class="lang-switch">
+      <button id="btn-pl" class="active">PL</button>
+      <button id="btn-en">EN</button>
+    </div>
+    <h1 id="site-title">DoItWithIT</h1>
+    <p id="site-desc">Realne wsparcie IT dla domu i małych firm</p>
   </header>
 
   <div class="network">
     <div class="center">DoItWithIT</div>
-
-    <div class="circle" data-pl="Zdalna pomoc" data-en="Remote Help">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 20v-4h8v4"/><circle cx="12" cy="10" r="2"/></svg>
-      <span>Zdalna pomoc</span>
-    </div>
-
-    <div class="circle" data-pl="Instalacja systemu i oprogramowania" data-en="System and Software Installation">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><rect x="3" y="4" width="18" height="14"/><circle cx="12" cy="12" r="2"/><path d="M12 16v2"/></svg>
-      <span>Instalacja systemu</span>
-    </div>
-
-    <div class="circle" data-pl="Konfiguracja sieci" data-en="Network Configuration">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>
-      <span>Konfiguracja sieci</span>
-    </div>
-
-    <div class="circle" data-pl="Instalacja peryferiów" data-en="Peripheral Installation">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><rect x="4" y="4" width="16" height="10"/><line x1="4" y1="14" x2="20" y2="14"/><circle cx="8" cy="18" r="1"/><circle cx="16" cy="18" r="1"/></svg>
-      <span>Instalacja peryferiów</span>
-    </div>
-
-    <div class="circle" data-pl="Obsługa domowa" data-en="Home Support">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><path d="M3 12l9-9 9 9"/><path d="M9 21V9h6v12"/></svg>
-      <span>Obsługa domowa</span>
-    </div>
-
-    <div class="circle" data-pl="Obsługa firmowa" data-en="Business Support">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M5 21v-2a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v2"/><path d="M15 21v-2a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v2"/></svg>
-      <span>Obsługa firmowa</span>
-    </div>
-
-    <div class="circle" data-pl="Instalacje strukturalnych sieci teleinformatycznych" data-en="Structured Network Installation">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/><line x1="10" y1="7" x2="14" y2="7"/><line x1="7" y1="10" x2="7" y2="14"/><line x1="10" y1="17" x2="14" y2="17"/><line x1="17" y1="10" x2="17" y2="14"/></svg>
-      <span>Sieci strukturalne</span>
-    </div>
-
-    <div class="circle" data-pl="Spawanie światłowodów" data-en="Fiber splicing">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#00bfff" stroke-width="2">
-        <path d="M12 2L2 22h20L12 2z"/>
-        <line x1="12" y1="8" x2="12" y2="16" />
-        <circle cx="12" cy="16" r="1.5" />
-      </svg>
-      <span>Spawanie światłowodów</span>
-    </div>
+    <div class="circle" data-key="remote">Zdalna pomoc</div>
+    <div class="circle" data-key="install">Instalacja systemu</div>
+    <div class="circle" data-key="network">Konfiguracja sieci</div>
+    <div class="circle" data-key="peripherals">Instalacja peryferiów</div>
+    <div class="circle" data-key="home">Obsługa domowa</div>
+    <div class="circle" data-key="business">Obsługa firmowa</div>
+    <div class="circle" data-key="structural">Instalacje strukturalnych sieci teleinformatycznych</div>
+    <div class="circle" data-key="fiber">Spawanie i naprawa światłowodów</div>
   </div>
 
   <footer>
-    <p>Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
+    <p id="contact">Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
 
   <script>
+    const langButtons = {
+      pl: document.getElementById("btn-pl"),
+      en: document.getElementById("btn-en")
+    };
+
+    const content = {
+      pl: {
+        siteDesc: "Realne wsparcie IT dla domu i małych firm",
+        contact: 'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Zdalna pomoc",
+          install: "Instalacja systemu",
+          network: "Konfiguracja sieci",
+          peripherals: "Instalacja peryferiów",
+          home: "Obsługa domowa",
+          business: "Obsługa firmowa",
+          structural: "Instalacje strukturalnych sieci teleinformatycznych",
+          fiber: "Spawanie i naprawa światłowodów"
+        }
+      },
+      en: {
+        siteDesc: "Reliable IT support for home and small business",
+        contact: 'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Remote help",
+          install: "System installation",
+          network: "Network configuration",
+          peripherals: "Peripherals setup",
+          home: "Home support",
+          business: "Business support",
+          structural: "Structured cabling installation",
+          fiber: "Fiber splicing and repair"
+        }
+      }
+    };
+
     function setLanguage(lang) {
-      document.querySelectorAll('.circle').forEach(el => {
-        const label = el.querySelector('span');
-        label.textContent = el.getAttribute(`data-${lang}`);
+      document.getElementById("site-desc").textContent = content[lang].siteDesc;
+      document.getElementById("contact").innerHTML = content[lang].contact;
+
+      document.querySelectorAll(".circle").forEach(el => {
+        const key = el.dataset.key;
+        el.textContent = content[lang].circles[key] || "";
+      });
+
+      Object.keys(langButtons).forEach(l => {
+        langButtons[l].classList.toggle("active", l === lang);
       });
     }
+
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+
+    function positionCircles() {
+      const network = document.querySelector('.network');
+      const circles = document.querySelectorAll('.network .circle:not(.center)');
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const radius = Math.min(centerX, centerY) - 90;
+      const angleStep = (2 * Math.PI) / circles.length;
+
+      circles.forEach((circle, i) => {
+        const angle = i * angleStep;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+      });
+    }
+
+    window.addEventListener('load', () => {
+      positionCircles();
+      setLanguage('pl');
+    });
+    window.addEventListener('resize', positionCircles);
   </script>
 
 </body>
