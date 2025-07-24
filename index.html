@@ -71,7 +71,7 @@
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
-      z-index: 5;
+      z-index: 10;
       width: 120px;
       height: 120px;
       display: flex;
@@ -97,20 +97,21 @@
       text-align: center;
       font-size: 0.85rem;
       transform: translate(-50%, -50%);
+      z-index: 5; /* Zapewnienie, że okręgi będą na obrazie */
     }
 
     .circle img {
-      width: 60px; /* Dopasuj rozmiar obrazu */
+      width: 60px; /* Dopasowanie rozmiaru obrazu */
       height: 60px;
       object-fit: cover; /* Obrazek wypełnia okrąg */
-      border-radius: 50%; /* Upewnij się, że obrazek ma kształt okręgu */
-      margin-bottom: 10px; /* Odstęp między obrazkiem a tekstem */
+      border-radius: 50%; /* Zaokrąglenie obrazka */
+      z-index: 15; /* Obrazek na wierzchu okręgu */
     }
 
     .circle:hover {
       transform: scale(1.2) translate(-50%, -50%);
       background-color: #0055a5;
-      z-index: 10;
+      z-index: 20; /* Podniesienie z-index, żeby okrąg był na wierzchu podczas hover */
     }
 
     footer {
@@ -165,23 +166,24 @@
   <div class="network">
     <div class="center">DoItWithIT</div>
 
+    <!-- Zaktualizowane obrazy wewnątrz okręgów -->
     <div class="circle" data-key="remote">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Zdalna pomoc">
+      <img src="obsluga_domowa.png" alt="Zdalna pomoc">
       Zdalna pomoc
     </div>
 
     <div class="circle" data-key="install">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Instalacja systemu">
+      <img src="obsluga_domowa.png" alt="Instalacja systemu">
       Instalacja systemu
     </div>
 
     <div class="circle" data-key="peripherals">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Instalacja peryferiów">
+      <img src="obsluga_domowa.png" alt="Instalacja peryferiów">
       Instalacja peryferiów
     </div>
 
     <div class="circle" data-key="business">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Obsługa firmowa">
+      <img src="obsluga_domowa.png" alt="Obsługa firmowa">
       Obsługa firmowa
     </div>
 
@@ -191,17 +193,17 @@
     </div>
 
     <div class="circle" data-key="network">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Konfiguracja sieci">
+      <img src="obsluga_domowa.png" alt="Konfiguracja sieci">
       Konfiguracja sieci
     </div>
 
     <div class="circle" data-key="structural">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Instalacje sieci strukturalnych">
+      <img src="obsluga_domowa.png" alt="Instalacje sieci strukturalnych">
       Instalacje sieci strukturalnych
     </div>
 
     <div class="circle" data-key="fiber">
-      <img src="http://doitwith.it/obsluga_domowa.png" alt="Spawanie światłowodów">
+      <img src="obsluga_domowa.png" alt="Spawanie światłowodów">
       Spawanie światłowodów
     </div>
   </div>
