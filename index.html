@@ -71,7 +71,7 @@
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
-      z-index: 10;
+      z-index: 5;
       width: 120px;
       height: 120px;
       display: flex;
@@ -97,7 +97,7 @@
       text-align: center;
       font-size: 0.85rem;
       transform: translate(-50%, -50%);
-      z-index: 5; /* Zapewnienie, że okręgi będą na obrazie */
+      z-index: 1; /* Zapewniamy, że okręgi są na tle */
     }
 
     .circle img {
@@ -105,13 +105,13 @@
       height: 60px;
       object-fit: cover; /* Obrazek wypełnia okrąg */
       border-radius: 50%; /* Zaokrąglenie obrazka */
-      z-index: 15; /* Obrazek na wierzchu okręgu */
+      z-index: 2; /* Ustawiamy obrazek na wierzchu */
     }
 
     .circle:hover {
       transform: scale(1.2) translate(-50%, -50%);
       background-color: #0055a5;
-      z-index: 20; /* Podniesienie z-index, żeby okrąg był na wierzchu podczas hover */
+      z-index: 20; /* Podniesienie z-index przy hover */
     }
 
     footer {
