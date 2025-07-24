@@ -89,13 +89,13 @@
       transition: transform 0.3s ease, background-color 0.3s ease;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
-      width: 100px;
-      height: 100px;
+      width: 110px;
+      height: 110px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       transform: translate(-50%, -50%);
     }
 
@@ -128,8 +128,8 @@
       }
 
       .circle {
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 90px;
         font-size: 0.75rem;
         padding: 0.5rem;
       }
@@ -162,6 +162,8 @@
     <div class="circle" data-key="peripherals">Instalacja peryferiów</div>
     <div class="circle" data-key="home">Obsługa domowa</div>
     <div class="circle" data-key="business">Obsługa firmowa</div>
+    <div class="circle" data-key="structural">Instalacje strukturalnych sieci teleinformatycznych</div>
+    <div class="circle" data-key="fiber">Spawanie i naprawa światłowodów</div>
   </div>
 
   <footer>
@@ -185,7 +187,9 @@
           network: "Konfiguracja sieci",
           peripherals: "Instalacja peryferiów",
           home: "Obsługa domowa",
-          business: "Obsługa firmowa"
+          business: "Obsługa firmowa",
+          structural: "Instalacje strukturalnych sieci teleinformatycznych",
+          fiber: "Spawanie i naprawa światłowodów"
         }
       },
       en: {
@@ -193,11 +197,13 @@
         contact: 'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
         circles: {
           remote: "Remote help",
-          install: "System install",
-          network: "Network setup",
+          install: "System installation",
+          network: "Network configuration",
           peripherals: "Peripherals setup",
           home: "Home support",
-          business: "Business support"
+          business: "Business support",
+          structural: "Structured cabling installation",
+          fiber: "Fiber splicing and repair"
         }
       }
     };
@@ -211,7 +217,6 @@
         el.textContent = content[lang].circles[key] || "";
       });
 
-      // Update button styles
       Object.keys(langButtons).forEach(l => {
         langButtons[l].classList.toggle("active", l === lang);
       });
@@ -226,7 +231,7 @@
       const rect = network.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const radius = Math.min(centerX, centerY) - 80;
+      const radius = Math.min(centerX, centerY) - 90;
       const angleStep = (2 * Math.PI) / circles.length;
 
       circles.forEach((circle, i) => {
@@ -240,7 +245,7 @@
 
     window.addEventListener('load', () => {
       positionCircles();
-      setLanguage('pl'); // default
+      setLanguage('pl');
     });
     window.addEventListener('resize', positionCircles);
   </script>
