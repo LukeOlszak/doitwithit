@@ -247,4 +247,44 @@
 
       document.querySelectorAll(".circle").forEach(el => {
         const key = el.dataset.key;
-        if (
+        if (content[lang].circles[key]) {
+          const img = el.querySelector("img");
+          el.innerHTML = (img ? img.outerHTML : "") + content[lang].circles[key];
+        }
+      });
+
+      Object.keys(langButtons).forEach(l => {
+        langButtons[l].classList.toggle("active", l === lang);
+      });
+    }
+
+    function positionCircles() {
+      const network = document.querySelector('.network');
+      const circles = document.querySelectorAll('.network .circle:not(.center)');
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const radius = Math.min(centerX, centerY) - 90;
+      const angleStep = (2 * Math.PI) / circles.length;
+
+      circles.forEach((circle, i) => {
+        const angle = i * angleStep;
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+      });
+    }
+
+    window.addEventListener('load', () => {
+      positionCircles();
+      setLanguage('pl');
+    });
+
+    window.addEventListener('resize', positionCircles);
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+  </script>
+
+</body>
+</html>
