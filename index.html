@@ -85,18 +85,25 @@
       background-color: #003366;
       color: #fff;
       border-radius: 50%;
-      padding: 1rem;
+      padding: 0.5rem;
       transition: transform 0.3s ease, background-color 0.3s ease;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
       width: 110px;
       height: 110px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       transform: translate(-50%, -50%);
+    }
+
+    .circle img {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 0.3rem;
     }
 
     .circle:hover {
@@ -130,8 +137,13 @@
       .circle {
         width: 90px;
         height: 90px;
-        font-size: 0.75rem;
-        padding: 0.5rem;
+        font-size: 0.65rem;
+        padding: 0.3rem;
+      }
+
+      .circle img {
+        width: 28px;
+        height: 28px;
       }
 
       .center {
@@ -156,14 +168,35 @@
 
   <div class="network">
     <div class="center">DoItWithIT</div>
-    <div class="circle" data-key="remote">Zdalna pomoc</div>
-    <div class="circle" data-key="install">Instalacja systemu</div>
+
+    <div class="circle" data-key="remote">
+      <img src="img/remote.png" alt="Zdalna pomoc">
+      Zdalna pomoc
+    </div>
+
+    <div class="circle" data-key="install">
+      <img src="img/install.png" alt="Instalacja systemu">
+      Instalacja systemu
+    </div>
+
+    <div class="circle" data-key="peripherals">
+      <img src="img/peripherals.png" alt="Peryferia">
+      Instalacja peryferiów
+    </div>
+
+    <div class="circle" data-key="business">
+      <img src="img/business.png" alt="Obsługa firmowa">
+      Obsługa firmowa
+    </div>
+
+    <div class="circle" data-key="home">
+      <img src="img/home.png" alt="Obsługa domowa">
+      Obsługa domowa
+    </div>
+
     <div class="circle" data-key="network">Konfiguracja sieci</div>
-    <div class="circle" data-key="peripherals">Instalacja peryferiów</div>
-    <div class="circle" data-key="home">Obsługa domowa</div>
-    <div class="circle" data-key="business">Obsługa firmowa</div>
-    <div class="circle" data-key="structural">Instalacje strukturalnych sieci teleinformatycznych</div>
-    <div class="circle" data-key="fiber">Spawanie i naprawa światłowodów</div>
+    <div class="circle" data-key="structural">Instalacje strukturalnych<br>sieci</div>
+    <div class="circle" data-key="fiber">Spawanie światłowodów</div>
   </div>
 
   <footer>
@@ -188,8 +221,8 @@
           peripherals: "Instalacja peryferiów",
           home: "Obsługa domowa",
           business: "Obsługa firmowa",
-          structural: "Instalacje strukturalnych sieci teleinformatycznych",
-          fiber: "Spawanie i naprawa światłowodów"
+          structural: "Instalacje strukturalnych<br>sieci",
+          fiber: "Spawanie światłowodów"
         }
       },
       en: {
@@ -202,8 +235,8 @@
           peripherals: "Peripherals setup",
           home: "Home support",
           business: "Business support",
-          structural: "Structured cabling installation",
-          fiber: "Fiber splicing and repair"
+          structural: "Structured cabling<br>installation",
+          fiber: "Fiber splicing"
         }
       }
     };
@@ -214,41 +247,4 @@
 
       document.querySelectorAll(".circle").forEach(el => {
         const key = el.dataset.key;
-        el.textContent = content[lang].circles[key] || "";
-      });
-
-      Object.keys(langButtons).forEach(l => {
-        langButtons[l].classList.toggle("active", l === lang);
-      });
-    }
-
-    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
-    langButtons.en.addEventListener("click", () => setLanguage("en"));
-
-    function positionCircles() {
-      const network = document.querySelector('.network');
-      const circles = document.querySelectorAll('.network .circle:not(.center)');
-      const rect = network.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const radius = Math.min(centerX, centerY) - 90;
-      const angleStep = (2 * Math.PI) / circles.length;
-
-      circles.forEach((circle, i) => {
-        const angle = i * angleStep;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        circle.style.left = `${x}px`;
-        circle.style.top = `${y}px`;
-      });
-    }
-
-    window.addEventListener('load', () => {
-      positionCircles();
-      setLanguage('pl');
-    });
-    window.addEventListener('resize', positionCircles);
-  </script>
-
-</body>
-</html>
+        if (
