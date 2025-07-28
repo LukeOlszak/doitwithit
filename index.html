@@ -101,24 +101,21 @@
       z-index: 1;
     }
 
-    /* Nowy wrapper dla obrazków */
-    .circle .img-wrapper {
-      width: 80px;               /* rozmiar okręgu dla obrazka */
+    .img-wrapper {
+      width: 80px;
       height: 80px;
-      padding: 10px;             /* przestrzeń między obrazkiem a wrapperem */
       border-radius: 50%;
-      background-color: transparent; /* można zmienić tło, jeśli chcesz */
-      box-sizing: border-box;
+      background-color: transparent;
       display: flex;
-      justify-content: center;
       align-items: center;
-      z-index: 2;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    .circle .img-wrapper img {
-      width: 70%;             /* obrazek dopasowuje się do wrappera */
-      height: 70%;
-      object-fit: contain;     /* obrazek w całości w okręgu */
+    .img-wrapper img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
       border-radius: 50%;
       display: block;
     }
@@ -128,7 +125,6 @@
       font-size: 0.9rem;
       display: block;
       text-align: center;
-      z-index: 3;
     }
 
     .circle:hover {
@@ -166,15 +162,14 @@
         padding: 0.5rem;
       }
 
-      .circle .img-wrapper {
-        width: 40px;
-        height: 40px;
-        padding: 5px;
+      .img-wrapper {
+        width: 50px;
+        height: 50px;
       }
 
-      .circle .img-wrapper img {
-        width: 100%;
-        height: 100%;
+      .img-wrapper img {
+        width: 70%;
+        height: 70%;
       }
 
       .center {
@@ -187,7 +182,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="lang-switch">
       <button id="btn-pl" class="active">PL</button>
@@ -349,6 +343,5 @@
     });
     window.addEventListener('resize', positionCircles);
   </script>
-
 </body>
 </html>
