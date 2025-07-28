@@ -101,22 +101,34 @@
       z-index: 1;
     }
 
-.circle img {
-  width: 60px;
-  height: 60px;
-  padding: 10px;       /* Dodaje przestrzeń wewnątrz elementu img */
-  object-fit: contain; /* obrazek będzie skalowany i zmieści się w całości */
-  border-radius: 50%;
-  background-color: transparent; /* można dodać np. tło jeśli chcesz */
-  z-index: 2;
-}
+    /* Nowy wrapper dla obrazków */
+    .circle .img-wrapper {
+      width: 80px;               /* rozmiar okręgu dla obrazka */
+      height: 80px;
+      padding: 10px;             /* przestrzeń między obrazkiem a wrapperem */
+      border-radius: 50%;
+      background-color: transparent; /* można zmienić tło, jeśli chcesz */
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
 
+    .circle .img-wrapper img {
+      width: 100%;             /* obrazek dopasowuje się do wrappera */
+      height: 100%;
+      object-fit: contain;     /* obrazek w całości w okręgu */
+      border-radius: 50%;
+      display: block;
+    }
 
     .circle .label {
       margin-top: 0.5rem;
       font-size: 0.9rem;
       display: block;
       text-align: center;
+      z-index: 3;
     }
 
     .circle:hover {
@@ -154,9 +166,15 @@
         padding: 0.5rem;
       }
 
-      .circle img {
-        width: 30px;
-        height: 30px;
+      .circle .img-wrapper {
+        width: 40px;
+        height: 40px;
+        padding: 5px;
+      }
+
+      .circle .img-wrapper img {
+        width: 100%;
+        height: 100%;
       }
 
       .center {
@@ -183,47 +201,65 @@
     <div class="center">Do It With IT</div>
 
     <div class="circle" data-key="remote">
-      <img src="zdalna_pomoc.png" alt="Zdalna pomoc">
+      <div class="img-wrapper">
+        <img src="zdalna_pomoc.png" alt="Zdalna pomoc">
+      </div>
       <span class="label">Zdalna pomoc</span>
     </div>
 
     <div class="circle" data-key="install">
-      <img src="instalacja_systemu.png" alt="Instalacja systemu">
+      <div class="img-wrapper">
+        <img src="instalacja_systemu.png" alt="Instalacja systemu">
+      </div>
       <span class="label">Instalacja systemu</span>
     </div>
 
     <div class="circle" data-key="peripherals">
-      <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów">
+      <div class="img-wrapper">
+        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów">
+      </div>
       <span class="label">Instalacja peryferiów</span>
     </div>
 
     <div class="circle" data-key="business">
-      <img src="obsluga_firmowa.png" alt="Obsługa firmowa">
+      <div class="img-wrapper">
+        <img src="obsluga_firmowa.png" alt="Obsługa firmowa">
+      </div>
       <span class="label">Obsługa firmowa</span>
     </div>
 
     <div class="circle" data-key="home">
-      <img src="obsluga_domowa.png" alt="Obsługa domowa">
+      <div class="img-wrapper">
+        <img src="obsluga_domowa.png" alt="Obsługa domowa">
+      </div>
       <span class="label">Obsługa domowa</span>
     </div>
 
     <div class="circle" data-key="network">
-      <img src="obsluga_domowa.png" alt="Konfiguracja sieci">
+      <div class="img-wrapper">
+        <img src="obsluga_domowa.png" alt="Konfiguracja sieci">
+      </div>
       <span class="label">Konfiguracja sieci</span>
     </div>
 
     <div class="circle" data-key="structural">
-      <img src="obsluga_domowa.png" alt="Sieci strukturalne">
+      <div class="img-wrapper">
+        <img src="obsluga_domowa.png" alt="Sieci strukturalne">
+      </div>
       <span class="label">Sieci strukturalne</span>
     </div>
 
     <div class="circle" data-key="fiber">
-      <img src="obsluga_domowa.png" alt="Światłowody">
+      <div class="img-wrapper">
+        <img src="obsluga_domowa.png" alt="Światłowody">
+      </div>
       <span class="label">Światłowody</span>
     </div>
 
     <div class="circle" data-key="monitoring">
-      <img src="obsluga_domowa.png" alt="Monitoring">
+      <div class="img-wrapper">
+        <img src="obsluga_domowa.png" alt="Monitoring">
+      </div>
       <span class="label">Monitoring</span>
     </div>
   </div>
