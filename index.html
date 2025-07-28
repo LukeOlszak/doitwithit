@@ -101,13 +101,16 @@
       z-index: 1;
     }
 
-    .circle img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 50%;
-      z-index: 2;
-    }
+.circle img {
+  width: 60px;
+  height: 60px;
+  padding: 10px;       /* Dodaje przestrzeń wewnątrz elementu img */
+  object-fit: contain; /* obrazek będzie skalowany i zmieści się w całości */
+  border-radius: 50%;
+  background-color: transparent; /* można dodać np. tło jeśli chcesz */
+  z-index: 2;
+}
+
 
     .circle .label {
       margin-top: 0.5rem;
