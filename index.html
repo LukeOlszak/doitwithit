@@ -287,7 +287,7 @@
       const angleStep = (2 * Math.PI) / circles.length;
 
       circles.forEach((circle, i) => {
-        const angle = i * angleStep;
+        const angle = i * angleStep - Math.PI / 2;
         const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
         circle.style.left = `${x}px`;
