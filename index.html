@@ -23,6 +23,7 @@
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
       color: #00bfff;
+      font-weight: bold;
     }
 
     .lang-switch {
@@ -80,51 +81,57 @@
       text-align: center;
     }
 
-    /* Nowy kontener na koło + label */
+    /* Kontener okręgu i podpisu */
     .circle-container {
       position: absolute;
-      transform: translate(-50%, -50%);
+      width: 130px;
+      /* wysokość zwiększona na miejsce pod podpis */
+      height: 160px;
       text-align: center;
+      transform: translate(-50%, -50%);
       z-index: 1;
-      width: 130px; /* dopasowane do kół */
     }
 
+    .circle-container:hover {
+      z-index: 20;
+    }
+
+    /* Sam okrąg z obrazkiem */
     .circle {
-      border-radius: 50%;
-      border: 2px solid #00bfff;
       width: 130px;
       height: 130px;
+      border-radius: 50%;
+      border: 2px solid #00bfff;
       overflow: hidden;
       transition: transform 0.3s ease;
       cursor: pointer;
-      box-sizing: border-box;
-      position: relative;
       margin: 0 auto;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    .circle:hover {
+      transform: scale(1.2);
+      z-index: 20;
     }
 
     .circle img {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
+      display: block;
     }
 
-    .circle-container:hover .circle {
-      transform: scale(1.2);
-      z-index: 20;
-      border-color: #00e5ff;
-      box-shadow: 0 0 20px #00e5ff;
-    }
-
-    /* Label pod kołem */
+    /* Podpis pod okręgiem */
     .circle-container .label {
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: bold;
+      font-size: 0.75rem;
+      color: #00bfff;
       margin-top: 8px;
       display: block;
-      color: #fff;
-      font-size: 0.85rem;
       user-select: none;
     }
 
@@ -152,6 +159,7 @@
 
       .circle-container {
         width: 80px;
+        height: 100px;
       }
 
       .circle {
@@ -185,69 +193,69 @@
   <div class="network">
     <div class="center">Do It With IT</div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="remote">
-        <img src="pomoc_zdalna.png" alt="Zdalna pomoc">
+    <!-- Każdy okrąg i podpis w .circle-container -->
+    <div class="circle-container" data-key="remote">
+      <div class="circle">
+        <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="install">
-        <img src="instalacja_systemu.png" alt="Instalacja systemu">
+    <div class="circle-container" data-key="install">
+      <div class="circle">
+        <img src="instalacja_systemu.png" alt="Instalacja systemu" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="peripherals">
-        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów">
+    <div class="circle-container" data-key="peripherals">
+      <div class="circle">
+        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="business">
-        <img src="obsluga_firmowa.png" alt="Obsługa firmowa">
+    <div class="circle-container" data-key="business">
+      <div class="circle">
+        <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="home">
-        <img src="obsluga_domowa.png" alt="Obsługa domowa">
+    <div class="circle-container" data-key="home">
+      <div class="circle">
+        <img src="obsluga_domowa.png" alt="Obsługa domowa" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="network">
-        <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci">
+    <div class="circle-container" data-key="network">
+      <div class="circle">
+        <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="structural">
-        <img src="sieci_strukturalne.png" alt="Sieci strukturalne">
+    <div class="circle-container" data-key="structural">
+      <div class="circle">
+        <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="fiber">
-        <img src="swiatlowody.png" alt="Światłowody">
+    <div class="circle-container" data-key="fiber">
+      <div class="circle">
+        <img src="swiatlowody.png" alt="Światłowody" />
       </div>
       <span class="label"></span>
     </div>
 
-    <div class="circle-container">
-      <div class="circle" data-key="monitoring">
-        <img src="monitoring.png" alt="Monitoring">
+    <div class="circle-container" data-key="monitoring">
+      <div class="circle">
+        <img src="monitoring.png" alt="Monitoring" />
       </div>
       <span class="label"></span>
     </div>
-
   </div>
 
   <footer>
@@ -266,7 +274,7 @@
         siteDesc: "Realne wsparcie IT dla domu i małych firm",
         contact: 'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
         circles: {
-          remote: "Pomoc zdalna",
+          remote: "Zdalna pomoc",
           install: "Instalacja systemu",
           network: "Konfiguracja sieci",
           peripherals: "Instalacja peryferiów",
@@ -298,10 +306,10 @@
       document.getElementById("site-desc").textContent = content[lang].siteDesc;
       document.getElementById("contact").innerHTML = content[lang].contact;
 
-      document.querySelectorAll(".circle-container").forEach(container => {
-        const key = container.querySelector('.circle')?.dataset.key;
-        const label = container.querySelector('.label');
-        if (key && label && content[lang].circles[key]) {
+      document.querySelectorAll(".circle-container").forEach(el => {
+        const key = el.dataset.key;
+        const label = el.querySelector(".label");
+        if (label && content[lang].circles[key]) {
           label.textContent = content[lang].circles[key];
         }
       });
@@ -313,7 +321,7 @@
 
     function positionCircles() {
       const network = document.querySelector('.network');
-      const containers = document.querySelectorAll('.network .circle-container');
+      const containers = document.querySelectorAll('.network .circle-container:not(.center)');
       const rect = network.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
@@ -321,7 +329,7 @@
       const angleStep = (2 * Math.PI) / containers.length;
 
       containers.forEach((container, i) => {
-        const angle = i * angleStep - Math.PI / 2; // przesunięcie, by pierwszy był na górze
+        const angle = i * angleStep - Math.PI / 2; // przesunięcie o -90° żeby pierwszy był na górze
         const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
         container.style.left = `${x}px`;
