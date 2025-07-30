@@ -2,21 +2,31 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Do It With IT</title>
+
+  <!--
+    ===========================
+    CSS styles - wygląd strony
+    ===========================
+  -->
   <style>
+    /* --- Globalne style dla body i podstawowego layoutu --- */
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #0d1e30, #1f3b5c);
       color: #fff;
       overflow-x: hidden;
+      position: relative;
     }
 
+    /* --- Nagłówek strony z tytułem i przełącznikiem języka --- */
     header {
       text-align: center;
       padding: 2rem 1rem 1rem 1rem;
       position: relative;
+      z-index: 10;
     }
 
     h1 {
@@ -25,10 +35,12 @@
       color: #00bfff;
     }
 
+    /* --- Przełącznik języka w prawym górnym rogu --- */
     .lang-switch {
       position: absolute;
       top: 1rem;
       right: 1rem;
+      z-index: 10;
     }
 
     .lang-switch button {
@@ -46,28 +58,33 @@
       color: #001d3d;
     }
 
+    /* --- Opis pod tytułem --- */
     p {
       color: #ccc;
       font-size: 1.1rem;
     }
 
+    /* --- Kontener całej sieci okręgów --- */
     .network {
       position: relative;
       width: 100%;
       max-width: 800px;
       margin: 3rem auto;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1 / 1; /* kwadratowy kontener */
     }
 
+    /* --- Canvas do rysowania animowanych promieni --- */
     canvas#beamCanvas {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; /* canvas nie przeszkadza w klikaniu */
+      z-index: 2;
     }
 
+    /* --- Środkowy okrąg z napisem "Do It With IT" --- */
     .center {
       position: absolute;
       top: 50%;
@@ -76,8 +93,9 @@
       background-color: #007acc;
       border-radius: 50%;
       padding: 1.5rem;
-      font-size: 1.4rem;
+      font-family: 'Segoe UI', sans-serif;
       font-weight: bold;
+      font-size: 1.2rem;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
       z-index: 5;
@@ -87,53 +105,73 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-family: 'Segoe UI', sans-serif;
+      user-select: none;
     }
 
-    .circle {
+    /* --- Kontener pojedynczego okręgu z kategorią i podpisem --- */
+    .circle-container {
       position: absolute;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 130px;
+      user-select: none;
+      z-index: 3;
+    }
+
+    /* --- Sam okrąg z grafiką --- */
+    .circle {
       border-radius: 50%;
       border: 2px solid #00bfff;
       width: 130px;
       height: 130px;
-      overflow: visible;
+      overflow: hidden;
       transition: transform 0.3s ease;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      cursor: default;
+      box-sizing: border-box;
+      position: relative;
+      margin: 0 auto;
     }
 
+    /* --- Obraz w okręgu --- */
     .circle img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      border: 2px solid #00bfff;
-      margin-bottom: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
     }
 
-    .circle .label {
+    /* --- Podpis pod okręgiem (nazwa kategorii) --- */
+    .label {
+      margin-top: 6px;
       font-family: 'Segoe UI', sans-serif;
       font-weight: bold;
       font-size: 0.85rem;
       color: #00bfff;
-      text-align: center;
       user-select: none;
     }
 
-    .circle:hover {
-      transform: scale(1.2) translate(-50%, -50%);
+    /* --- Efekt powiększenia przy najechaniu na okrąg --- */
+    .circle-container:hover .circle {
+      transform: scale(1.2);
       z-index: 20;
+      border-color: #80d4ff;
+      box-shadow: 0 0 15px #80d4ff;
     }
 
+    /* --- Stopka strony z kontaktem --- */
     footer {
       text-align: center;
       padding: 2rem 1rem;
       background-color: #001d3d;
       color: #ccc;
       font-size: 0.9rem;
+      position: relative;
+      z-index: 10;
     }
 
     a {
@@ -141,6 +179,7 @@
       text-decoration: none;
     }
 
+    /* --- Responsywność dla mniejszych ekranów --- */
     @media (max-width: 600px) {
       h1 {
         font-size: 2rem;
@@ -150,19 +189,17 @@
         font-size: 1rem;
       }
 
+      .circle-container {
+        width: 80px;
+      }
+
       .circle {
         width: 80px;
         height: 80px;
       }
 
-      .circle img {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 4px;
-      }
-
-      .circle .label {
-        font-size: 0.65rem;
+      .label {
+        font-size: 0.7rem;
       }
 
       .center {
@@ -175,6 +212,11 @@
   </style>
 </head>
 <body>
+  <!--
+    ===========================
+    Nagłówek z tytułem i przełącznikiem języka
+    ===========================
+  -->
   <header>
     <div class="lang-switch">
       <button id="btn-pl" class="active">PL</button>
@@ -184,69 +226,117 @@
     <p id="site-desc">Realne wsparcie IT dla domu i małych firm</p>
   </header>
 
+  <!--
+    ===========================
+    Kontener sieci z okręgami i animowanym canvasem
+    ===========================
+  -->
   <div class="network" id="network">
+    <!-- Canvas do rysowania promieni świetlnych -->
     <canvas id="beamCanvas"></canvas>
+
+    <!-- Środkowy okrąg z tekstem -->
     <div class="center">Do It With IT</div>
 
-    <div class="circle" data-key="remote" title="Zdalna pomoc">
-      <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
-      <span class="label">Zdalna pomoc</span>
+    <!--
+      Pojedyncze okręgi z kategoriami.
+      data-key służy do powiązania z nazwami w skrypcie.
+      Pod każdym okręgiem jest miejsce na podpis (.label).
+    -->
+    <div class="circle-container" data-key="remote">
+      <div class="circle">
+        <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="install" title="Instalacja systemu">
-      <img src="instalacja_systemu.png" alt="Instalacja systemu" />
-      <span class="label">Instalacja systemu</span>
+    <div class="circle-container" data-key="install">
+      <div class="circle">
+        <img src="instalacja_systemu.png" alt="Instalacja systemu" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="peripherals" title="Instalacja peryferiów">
-      <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
-      <span class="label">Instalacja peryferiów</span>
+    <div class="circle-container" data-key="peripherals">
+      <div class="circle">
+        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="business" title="Obsługa firmowa">
-      <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
-      <span class="label">Obsługa firmowa</span>
+    <div class="circle-container" data-key="business">
+      <div class="circle">
+        <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="home" title="Obsługa domowa">
-      <img src="obsluga_domowa.png" alt="Obsługa domowa" />
-      <span class="label">Obsługa domowa</span>
+    <div class="circle-container" data-key="home">
+      <div class="circle">
+        <img src="obsluga_domowa.png" alt="Obsługa domowa" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="network" title="Konfiguracja sieci">
-      <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
-      <span class="label">Konfiguracja sieci</span>
+    <div class="circle-container" data-key="network">
+      <div class="circle">
+        <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="structural" title="Sieci strukturalne">
-      <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
-      <span class="label">Sieci strukturalne</span>
+    <div class="circle-container" data-key="structural">
+      <div class="circle">
+        <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="fiber" title="Światłowody">
-      <img src="swiatlowody.png" alt="Światłowody" />
-      <span class="label">Światłowody</span>
+    <div class="circle-container" data-key="fiber">
+      <div class="circle">
+        <img src="swiatlowody.png" alt="Światłowody" />
+      </div>
+      <div class="label"></div>
     </div>
 
-    <div class="circle" data-key="monitoring" title="Monitoring">
-      <img src="monitoring.png" alt="Monitoring" />
-      <span class="label">Monitoring</span>
+    <div class="circle-container" data-key="monitoring">
+      <div class="circle">
+        <img src="monitoring.png" alt="Monitoring" />
+      </div>
+      <div class="label"></div>
     </div>
   </div>
 
+  <!--
+    ===========================
+    Stopka z danymi kontaktowymi
+    ===========================
+  -->
   <footer>
     <p id="contact">
-      Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>
+      Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel:
+  <!--    <a href="tel:+48509201700">+48 509 201 700</a> -->
     </p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
 
+  <!--
+    ===========================
+    Skrypt JS obsługujący:
+    - przełączanie języka,
+    - rozmieszczenie okręgów wokół środkowego,
+    - animację promieni świetlnych w stylu "matrix",
+    - responsywność canvas i elementów
+    ===========================
+  -->
   <script>
+    // Przyciski wyboru języka
     const langButtons = {
       pl: document.getElementById("btn-pl"),
-      en: document.getElementById("btn-en")
+      en: document.getElementById("btn-en"),
     };
 
+    // Zawartość tekstowa dla obu języków
     const content = {
       pl: {
         siteDesc: "Realne wsparcie IT dla domu i małych firm",
@@ -261,8 +351,8 @@
           business: "Obsługa firmowa",
           structural: "Sieci strukturalne",
           fiber: "Światłowody",
-          monitoring: "Monitoring"
-        }
+          monitoring: "Monitoring",
+        },
       },
       en: {
         siteDesc: "Reliable IT support for home and small business",
@@ -277,22 +367,24 @@
           business: "Business support",
           structural: "Structured cabling",
           fiber: "Optical Fiber",
-          monitoring: "Monitoring"
-        }
-      }
+          monitoring: "Monitoring",
+        },
+      },
     };
 
-    // Ustawienie języka i podpisów kategorii
+    /**
+     * Ustawia język strony i aktualizuje teksty w elementach
+     * @param {string} lang - 'pl' lub 'en'
+     */
     function setLanguage(lang) {
       document.getElementById("site-desc").textContent = content[lang].siteDesc;
       document.getElementById("contact").innerHTML = content[lang].contact;
 
-      document.querySelectorAll(".circle").forEach((el) => {
-        const key = el.dataset.key;
-        const label = el.querySelector(".label");
+      document.querySelectorAll(".circle-container").forEach((container) => {
+        const key = container.dataset.key;
+        const label = container.querySelector(".label");
         if (label && content[lang].circles[key]) {
           label.textContent = content[lang].circles[key];
-          el.title = content[lang].circles[key];
         }
       });
 
@@ -301,154 +393,166 @@
       });
     }
 
-    // Pozycjonowanie okręgów równomiernie dookoła centrum
+    // Referencje do elementów sieci i canvas
+    const network = document.getElementById("network");
+    const beamCanvas = document.getElementById("beamCanvas");
+    const ctx = beamCanvas.getContext("2d");
+
+    // Tablica z celami końcowymi promieni (pozycje okręgów)
+    let targets = [];
+
+    /**
+     * Ustawia pozycje okręgów wokół środka w kształcie koła
+     * "Pomoc zdalna" jest na górze (godzina 12:00)
+     */
     function positionCircles() {
-      const network = document.querySelector(".network");
-      const circles = document.querySelectorAll(".network .circle:not(.center)");
       const rect = network.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const radius = Math.min(centerX, centerY) - 90;
+      const radius = Math.min(centerX, centerY) - 100; // margines od brzegu
 
+      // Pobierz wszystkie okręgi z wyjątkiem środkowego (center)
+      const circles = Array.from(
+        network.querySelectorAll(".circle-container:not(.center)")
+      );
+
+      // Znajdź indeks "remote" i przenieś go na początek tablicy
+      const remoteIndex = circles.findIndex(
+        (c) => c.dataset.key === "remote"
+      );
+      if (remoteIndex === -1) return;
+
+      if (remoteIndex > 0) {
+        const remote = circles.splice(remoteIndex, 1)[0];
+        circles.unshift(remote);
+      }
+
+      // Ustaw pozycje okręgów równomiernie na okręgu
       const count = circles.length;
-      circles.forEach((circle, i) => {
-        const angle = (2 * Math.PI / count) * i - Math.PI / 2; // start od góry
+      circles.forEach((container, i) => {
+        const angle = (i / count) * 2 * Math.PI - Math.PI / 2; // start na 12:00
+
         const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
-        circle.style.left = x + "px";
-        circle.style.top = y + "px";
+
+        container.style.left = `${x}px`;
+        container.style.top = `${y}px`;
+
+        // Aktualizuj pozycje do tablicy targetów dla animacji
+        targets[i] = { x, y };
       });
     }
 
-    // Promienie świetlne animacja - po jednej wiązce na okrąg
-    const canvas = document.getElementById("beamCanvas");
-    const ctx = canvas.getContext("2d");
-    let beams = [];
-    let targets = [];
-
-    function generateChars(len) {
-      let chars = [];
-      for (let i = 0; i < len; i++) {
-        chars.push(Math.random() > 0.5 ? "0" : "1");
-      }
-      return chars;
+    /**
+     * Inicjalizuje rozmiar canvas i ustawia skalę do wyświetlania
+     */
+    function resizeCanvas() {
+      const rect = network.getBoundingClientRect();
+      beamCanvas.width = rect.width * devicePixelRatio;
+      beamCanvas.height = rect.height * devicePixelRatio;
+      beamCanvas.style.width = rect.width + "px";
+      beamCanvas.style.height = rect.height + "px";
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
     }
 
-    // Inicjalizacja wiązek promieni - jedna na każdy okrąg
+    // Dane dla animowanych promieni
+    const beamCount = 30;
+    let beams = [];
+
+    // Inicjalizacja promieni (losowe starty wokół środka)
     function initBeams() {
-      const rect = canvas.getBoundingClientRect();
+      const rect = network.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-
       beams = [];
 
-      // Tworzymy dokładnie tyle wiązek, ile jest okręgów
-      targets.forEach((target) => {
-        const length = 15 + Math.floor(Math.random() * 10);
-
+      for (let i = 0; i < beamCount; i++) {
+        // Promień porusza się od centrum do losowego celu (jeden z okręgów)
+        const targetIndex = i % targets.length;
         beams.push({
           x: centerX,
           y: centerY,
-          target: target,
-          speed: 1.2,  // trochę wolniejsze
-          length: length,
-          chars: generateChars(length),
-          charIndex: 0,
+          target: targets[targetIndex],
+          speed: 2 + Math.random() * 2,
+          angle: 0,
+          alpha: 1,
+          length: 50 + Math.random() * 100,
+          progress: 0,
         });
-      });
+      }
     }
 
-    // Animacja promieni - płynne ciągłe wiązki docierające do środka okręgów
+    // Animacja promieni rysowanych na canvasie
     function animateBeams() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const rect = canvas.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
+      const rect = network.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
 
       beams.forEach((beam) => {
-        // Wejście promienia w kierunku celu
+        // Aktualizacja pozycji
         const dx = beam.target.x - beam.x;
         const dy = beam.target.y - beam.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < beam.speed) {
-          // Po osiągnięciu celu wracamy do centrum
+          // Po dotarciu do celu resetuj do środka
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
           beam.x = centerX;
           beam.y = centerY;
-          beam.charIndex = 0;
+          beam.alpha = 1;
+          beam.length = 50 + Math.random() * 100;
         } else {
+          // Przesuń promień w kierunku celu
           beam.x += (dx / dist) * beam.speed;
           beam.y += (dy / dist) * beam.speed;
+          beam.alpha = Math.max(0, beam.alpha - 0.01);
         }
 
-        // Rysowanie promienia jako ciąg znaków 0 i 1 za promieniem
+        // Rysowanie promienia jako linii
+        ctx.strokeStyle = `rgba(0, 191, 255, ${beam.alpha})`;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+
+        // Rysuj linię promienia od aktualnej pozycji w przeciwnym kierunku ruchu
         const angle = Math.atan2(dy, dx);
-        ctx.save();
-        ctx.translate(beam.x, beam.y);
-        ctx.rotate(angle);
+        const xStart = beam.x - Math.cos(angle) * beam.length;
+        const yStart = beam.y - Math.sin(angle) * beam.length;
 
-        ctx.font = "bold 14px monospace";
-        ctx.fillStyle = "rgba(0, 191, 255, 0.85)";
-        ctx.textBaseline = "middle";
-
-        for (let i = 0; i < beam.length; i++) {
-          const char = beam.chars[(beam.charIndex + i) % beam.length];
-          ctx.fillText(char, -i * 12, 0);
-        }
-
-        ctx.restore();
-
-        beam.charIndex = (beam.charIndex + 1) % beam.length;
+        ctx.moveTo(xStart, yStart);
+        ctx.lineTo(beam.x, beam.y);
+        ctx.stroke();
       });
 
       requestAnimationFrame(animateBeams);
     }
 
-    // Pozycjonowanie celów promieni (środek każdego okręgu kategorii)
-    function updateTargets() {
-      targets = [];
-      document.querySelectorAll(".network .circle").forEach((circle) => {
-        if (!circle.classList.contains("center")) {
-          const rect = circle.getBoundingClientRect();
-          const parentRect = circle.parentElement.getBoundingClientRect();
-          // Pozycja środka okręgu względem canvas
-          const x = rect.left - parentRect.left + rect.width / 2;
-          const y = rect.top - parentRect.top + rect.height / 2;
-          targets.push({ x, y });
-        }
-      });
-    }
-
-    // Ustawienia rozmiaru canvasa zgodnie z div.network
-    function resizeCanvas() {
-      const rect = canvas.parentElement.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-    }
-
-    // Inicjalizacja wszystkiego po załadowaniu
+    /**
+     * Funkcja inicjująca całą animację i ustawienia
+     */
     function init() {
-      setLanguage("pl");
       positionCircles();
       resizeCanvas();
-      updateTargets();
       initBeams();
       animateBeams();
     }
 
-    // Obsługa zmiany języka
-    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
-    langButtons.en.addEventListener("click", () => setLanguage("en"));
-
-    // Obsługa resize
+    // Obsługa zmiany rozmiaru okna
     window.addEventListener("resize", () => {
       positionCircles();
       resizeCanvas();
-      updateTargets();
       initBeams();
     });
 
-    window.onload = init;
+    // Obsługa kliknięć na przyciski języka
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+
+    // Start z językiem polskim
+    setLanguage("pl");
+
+    // Start animacji i rozmieszczenia po załadowaniu strony
+    window.addEventListener("load", init);
   </script>
 </body>
 </html>
