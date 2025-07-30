@@ -82,52 +82,39 @@
 
     .circle {
       position: absolute;
-      background-color: #003366;
-      color: #fff;
       border-radius: 50%;
-      padding: 1rem;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
       border: 2px solid #00bfff;
       width: 130px;
       height: 130px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 0.85rem;
+      overflow: hidden;
+      transition: transform 0.3s ease;
       transform: translate(-50%, -50%);
       z-index: 1;
     }
 
-   .img-wrapper {
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-    .img-wrapper img {
+    .circle img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       border-radius: 50%;
-      display: block;
     }
 
     .circle .label {
-      margin-top: 0.5rem;
-      font-size: 0.9rem;
-      display: block;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.4rem;
+      color: #fff;
       text-align: center;
     }
 
     .circle:hover {
       transform: scale(1.2) translate(-50%, -50%);
-      background-color: #0055a5;
       z-index: 20;
     }
 
@@ -156,18 +143,10 @@
       .circle {
         width: 80px;
         height: 80px;
-        font-size: 0.75rem;
-        padding: 0.5rem;
       }
 
-      .img-wrapper {
-        width: 50px;
-        height: 50px;
-      }
-
-      .img-wrapper img {
-        width: 70%;
-        height: 70%;
+      .circle .label {
+        font-size: 0.65rem;
       }
 
       .center {
@@ -193,65 +172,47 @@
     <div class="center">Do It With IT</div>
 
     <div class="circle" data-key="remote">
-      <div class="img-wrapper">
-        <img src="pomoc_zdalna.png" alt="Zdalna pomoc">
-      </div>
+      <img src="pomoc_zdalna.png" alt="Zdalna pomoc">
       <span class="label">Zdalna pomoc</span>
     </div>
 
     <div class="circle" data-key="install">
-      <div class="img-wrapper">
-        <img src="instalacja_systemu.png" alt="Instalacja systemu">
-      </div>
+      <img src="instalacja_systemu.png" alt="Instalacja systemu">
       <span class="label">Instalacja systemu</span>
     </div>
 
     <div class="circle" data-key="peripherals">
-      <div class="img-wrapper">
-        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów">
-      </div>
+      <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów">
       <span class="label">Instalacja peryferiów</span>
     </div>
 
     <div class="circle" data-key="business">
-      <div class="img-wrapper">
-        <img src="obsluga_firmowa.png" alt="Obsługa firmowa">
-      </div>
+      <img src="obsluga_firmowa.png" alt="Obsługa firmowa">
       <span class="label">Obsługa firmowa</span>
     </div>
 
     <div class="circle" data-key="home">
-      <div class="img-wrapper">
-        <img src="obsluga_domowa.png" alt="Obsługa domowa">
-      </div>
+      <img src="obsluga_domowa.png" alt="Obsługa domowa">
       <span class="label">Obsługa domowa</span>
     </div>
 
     <div class="circle" data-key="network">
-      <div class="img-wrapper">
-        <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci">
-      </div>
+      <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci">
       <span class="label">Konfiguracja sieci</span>
     </div>
 
     <div class="circle" data-key="structural">
-      <div class="img-wrapper">
-        <img src="sieci_strukturalne.png" alt="Sieci strukturalne">
-      </div>
+      <img src="sieci_strukturalne.png" alt="Sieci strukturalne">
       <span class="label">Sieci strukturalne</span>
     </div>
 
     <div class="circle" data-key="fiber">
-      <div class="img-wrapper">
-        <img src="swiatlowody.png" alt="Światłowody">
-      </div>
+      <img src="swiatlowody.png" alt="Światłowody">
       <span class="label">Światłowody</span>
     </div>
 
     <div class="circle" data-key="monitoring">
-      <div class="img-wrapper">
-        <img src="monitoring.png" alt="Monitoring">
-      </div>
+      <img src="monitoring.png" alt="Monitoring">
       <span class="label">Monitoring</span>
     </div>
   </div>
