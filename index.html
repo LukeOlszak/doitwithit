@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Do It With IT</title>
   <style>
     body {
@@ -59,15 +59,13 @@
       aspect-ratio: 1 / 1;
     }
 
-    /* Płótno do animacji promieni - rozciągnięte na całą sieć */
-    #beamCanvas {
+    canvas#beamCanvas {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* by nie blokować kliknięć */
-      z-index: 2;
+      pointer-events: none;
+      z-index: 0;
     }
 
     .center {
@@ -78,7 +76,7 @@
       background-color: #007acc;
       border-radius: 50%;
       padding: 1.5rem;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: bold;
       box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
       border: 3px solid #fff;
@@ -101,31 +99,28 @@
       overflow: visible;
       transition: transform 0.3s ease;
       transform: translate(-50%, -50%);
-      z-index: 3;
+      z-index: 10;
       display: flex;
       flex-direction: column;
       align-items: center;
-      cursor: default;
     }
 
     .circle img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      user-select: none;
+      object-fit: cover;
+      border: 2px solid #00bfff;
+      margin-bottom: 8px;
     }
 
-    /* Podpis pod okręgami - nazwa kategorii */
     .circle .label {
-      margin-top: 6px;
       font-family: 'Segoe UI', sans-serif;
-      font-weight: 600;
+      font-weight: bold;
       font-size: 0.85rem;
       color: #00bfff;
       text-align: center;
       user-select: none;
-      pointer-events: none;
     }
 
     .circle:hover {
@@ -160,6 +155,12 @@
         height: 80px;
       }
 
+      .circle img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 4px;
+      }
+
       .circle .label {
         font-size: 0.65rem;
       }
@@ -184,77 +185,75 @@
   </header>
 
   <div class="network" id="network">
-    <!-- Płótno dla animacji promieni -->
     <canvas id="beamCanvas"></canvas>
-
     <div class="center">Do It With IT</div>
 
-    <div class="circle" data-key="remote">
+    <div class="circle" data-key="remote" title="Zdalna pomoc">
       <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
-      <span class="label">Pomoc zdalna</span>
+      <span class="label">Zdalna pomoc</span>
     </div>
 
-    <div class="circle" data-key="install">
+    <div class="circle" data-key="install" title="Instalacja systemu">
       <img src="instalacja_systemu.png" alt="Instalacja systemu" />
       <span class="label">Instalacja systemu</span>
     </div>
 
-    <div class="circle" data-key="peripherals">
+    <div class="circle" data-key="peripherals" title="Instalacja peryferiów">
       <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
       <span class="label">Instalacja peryferiów</span>
     </div>
 
-    <div class="circle" data-key="business">
+    <div class="circle" data-key="business" title="Obsługa firmowa">
       <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
       <span class="label">Obsługa firmowa</span>
     </div>
 
-    <div class="circle" data-key="home">
+    <div class="circle" data-key="home" title="Obsługa domowa">
       <img src="obsluga_domowa.png" alt="Obsługa domowa" />
       <span class="label">Obsługa domowa</span>
     </div>
 
-    <div class="circle" data-key="network">
+    <div class="circle" data-key="network" title="Konfiguracja sieci">
       <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
       <span class="label">Konfiguracja sieci</span>
     </div>
 
-    <div class="circle" data-key="structural">
+    <div class="circle" data-key="structural" title="Sieci strukturalne">
       <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
       <span class="label">Sieci strukturalne</span>
     </div>
 
-    <div class="circle" data-key="fiber">
+    <div class="circle" data-key="fiber" title="Światłowody">
       <img src="swiatlowody.png" alt="Światłowody" />
       <span class="label">Światłowody</span>
     </div>
 
-    <div class="circle" data-key="monitoring">
+    <div class="circle" data-key="monitoring" title="Monitoring">
       <img src="monitoring.png" alt="Monitoring" />
       <span class="label">Monitoring</span>
     </div>
   </div>
 
   <footer>
-    <p id="contact">Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
+    <p id="contact">
+      Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>
+    </p>
     <p>&copy; 2025 DoItWithIT</p>
   </footer>
 
   <script>
-    // Elementy do wyboru języka
     const langButtons = {
       pl: document.getElementById("btn-pl"),
       en: document.getElementById("btn-en")
     };
 
-    // Teksty i opisy w obu językach
     const content = {
       pl: {
         siteDesc: "Realne wsparcie IT dla domu i małych firm",
         contact:
           'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
         circles: {
-          remote: "Pomoc zdalna",
+          remote: "Zdalna pomoc",
           install: "Instalacja systemu",
           network: "Konfiguracja sieci",
           peripherals: "Instalacja peryferiów",
@@ -262,8 +261,8 @@
           business: "Obsługa firmowa",
           structural: "Sieci strukturalne",
           fiber: "Światłowody",
-          monitoring: "Monitoring",
-        },
+          monitoring: "Monitoring"
+        }
       },
       en: {
         siteDesc: "Reliable IT support for home and small business",
@@ -278,12 +277,12 @@
           business: "Business support",
           structural: "Structured cabling",
           fiber: "Optical Fiber",
-          monitoring: "Monitoring",
-        },
-      },
+          monitoring: "Monitoring"
+        }
+      }
     };
 
-    // Ustawienie tekstów dla wybranego języka
+    // Ustawienie języka i podpisów kategorii
     function setLanguage(lang) {
       document.getElementById("site-desc").textContent = content[lang].siteDesc;
       document.getElementById("contact").innerHTML = content[lang].contact;
@@ -293,6 +292,7 @@
         const label = el.querySelector(".label");
         if (label && content[lang].circles[key]) {
           label.textContent = content[lang].circles[key];
+          el.title = content[lang].circles[key];
         }
       });
 
@@ -301,7 +301,7 @@
       });
     }
 
-    // Pozycjonowanie kółek w okręgu i przypisywanie celów promieni
+    // Pozycjonowanie okręgów równomiernie dookoła centrum
     function positionCircles() {
       const network = document.querySelector(".network");
       const circles = document.querySelectorAll(".network .circle:not(.center)");
@@ -309,44 +309,32 @@
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       const radius = Math.min(centerX, centerY) - 90;
-      const angleStep = (2 * Math.PI) / circles.length;
 
+      const count = circles.length;
       circles.forEach((circle, i) => {
-        const angle = i * angleStep - Math.PI / 2; // -pi/2 by zacząć od góry
+        const angle = (2 * Math.PI / count) * i - Math.PI / 2; // start od góry
         const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
-
-        circle.style.left = `${x}px`;
-        circle.style.top = `${y}px`;
-      });
-
-      return Array.from(circles).map((circle) => {
-        const rect = circle.getBoundingClientRect();
-        return {
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2,
-        };
+        circle.style.left = x + "px";
+        circle.style.top = y + "px";
       });
     }
 
-    // --- Animacja promieni ---
-
+    // Promienie świetlne animacja - po jednej wiązce na okrąg
     const canvas = document.getElementById("beamCanvas");
     const ctx = canvas.getContext("2d");
     let beams = [];
     let targets = [];
-    const beamCount = 80;
 
-    // Tworzy tablicę znaków 0 i 1 o danej długości
-    function generateChars(length) {
-      const chars = [];
-      for (let i = 0; i < length; i++) {
+    function generateChars(len) {
+      let chars = [];
+      for (let i = 0; i < len; i++) {
         chars.push(Math.random() > 0.5 ? "0" : "1");
       }
       return chars;
     }
 
-    // Inicjalizacja promieni: start w centrum, target to pozycje okręgów
+    // Inicjalizacja wiązek promieni - jedna na każdy okrąg
     function initBeams() {
       const rect = canvas.getBoundingClientRect();
       const centerX = rect.width / 2;
@@ -354,23 +342,23 @@
 
       beams = [];
 
-      for (let i = 0; i < beamCount; i++) {
-        const targetIndex = i % targets.length;
+      // Tworzymy dokładnie tyle wiązek, ile jest okręgów
+      targets.forEach((target) => {
         const length = 15 + Math.floor(Math.random() * 10);
 
         beams.push({
           x: centerX,
           y: centerY,
-          target: targets[targetIndex],
-          speed: 2 + Math.random() * 1.5,
+          target: target,
+          speed: 1.2,  // trochę wolniejsze
           length: length,
           chars: generateChars(length),
           charIndex: 0,
         });
-      }
+      });
     }
 
-    // Animacja promieni - ciągłe, bez przerw, równoczesne do wszystkich okręgów
+    // Animacja promieni - płynne ciągłe wiązki docierające do środka okręgów
     function animateBeams() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const rect = canvas.getBoundingClientRect();
@@ -378,14 +366,13 @@
       const centerY = rect.height / 2;
 
       beams.forEach((beam) => {
-        // Oblicz wektor do celu
+        // Wejście promienia w kierunku celu
         const dx = beam.target.x - beam.x;
         const dy = beam.target.y - beam.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        // Ruch promienia do celu
         if (dist < beam.speed) {
-          // Po osiągnięciu celu reset do centrum
+          // Po osiągnięciu celu wracamy do centrum
           beam.x = centerX;
           beam.y = centerY;
           beam.charIndex = 0;
@@ -394,7 +381,7 @@
           beam.y += (dy / dist) * beam.speed;
         }
 
-        // Obrót kontekstu w kierunku ruchu promienia
+        // Rysowanie promienia jako ciąg znaków 0 i 1 za promieniem
         const angle = Math.atan2(dy, dx);
         ctx.save();
         ctx.translate(beam.x, beam.y);
@@ -404,7 +391,6 @@
         ctx.fillStyle = "rgba(0, 191, 255, 0.85)";
         ctx.textBaseline = "middle";
 
-        // Rysuj ciąg znaków 0 i 1 za promieniem (w kierunku przeciwnym)
         for (let i = 0; i < beam.length; i++) {
           const char = beam.chars[(beam.charIndex + i) % beam.length];
           ctx.fillText(char, -i * 12, 0);
@@ -412,38 +398,57 @@
 
         ctx.restore();
 
-        // Przesuwaj indeks znaków, żeby tekst się przesuwał
         beam.charIndex = (beam.charIndex + 1) % beam.length;
       });
 
       requestAnimationFrame(animateBeams);
     }
 
-    // Aktualizacja rozmiaru canvas i pozycjonowanie okręgów
-    function resize() {
-      const network = document.getElementById("network");
-      canvas.width = network.clientWidth;
-      canvas.height = network.clientHeight;
-
-      // Pobierz aktualne pozycje okręgów - targety promieni
-      targets = positionCircles();
-
-      initBeams();
+    // Pozycjonowanie celów promieni (środek każdego okręgu kategorii)
+    function updateTargets() {
+      targets = [];
+      document.querySelectorAll(".network .circle").forEach((circle) => {
+        if (!circle.classList.contains("center")) {
+          const rect = circle.getBoundingClientRect();
+          const parentRect = circle.parentElement.getBoundingClientRect();
+          // Pozycja środka okręgu względem canvas
+          const x = rect.left - parentRect.left + rect.width / 2;
+          const y = rect.top - parentRect.top + rect.height / 2;
+          targets.push({ x, y });
+        }
+      });
     }
 
-    window.addEventListener("resize", resize);
+    // Ustawienia rozmiaru canvasa zgodnie z div.network
+    function resizeCanvas() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    }
 
-    // Język: domyślnie polski
-    setLanguage("pl");
+    // Inicjalizacja wszystkiego po załadowaniu
+    function init() {
+      setLanguage("pl");
+      positionCircles();
+      resizeCanvas();
+      updateTargets();
+      initBeams();
+      animateBeams();
+    }
 
+    // Obsługa zmiany języka
     langButtons.pl.addEventListener("click", () => setLanguage("pl"));
     langButtons.en.addEventListener("click", () => setLanguage("en"));
 
-    // Start animacji po załadowaniu
-    window.addEventListener("load", () => {
-      resize();
-      animateBeams();
+    // Obsługa resize
+    window.addEventListener("resize", () => {
+      positionCircles();
+      resizeCanvas();
+      updateTargets();
+      initBeams();
     });
+
+    window.onload = init;
   </script>
 </body>
 </html>
