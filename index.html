@@ -346,7 +346,6 @@
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       const radius = Math.min(centerX, centerY) - 100; // trochę większy margines
-      const radius = window.innerWidth <= 600 ? baseRadius + 50 : baseRadius;
 
       const circles = Array.from(
         network.querySelectorAll(".circle-container:not(.center)")
