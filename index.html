@@ -1,450 +1,473 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Do It With IT - z wiązkami</title>
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #0d1e30, #1f3b5c);
-    color: #fff;
-    overflow-x: hidden;
-    position: relative;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Do It With IT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0d1e30, #1f3b5c);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-  header {
-    text-align: center;
-    padding: 2rem 1rem 1rem 1rem;
-    position: relative;
-    z-index: 50;
-  }
+    header {
+      text-align: center;
+      padding: 2rem 1rem 1rem 1rem;
+      position: relative;
+      z-index: 10;
+    }
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: #00bfff;
-    font-weight: bold;
-  }
-
-  .lang-switch {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 60;
-  }
-
-  .lang-switch button {
-    background: none;
-    border: 1px solid #00bfff;
-    color: #00bfff;
-    padding: 0.4rem 0.8rem;
-    margin-left: 0.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .lang-switch button.active {
-    background-color: #00bfff;
-    color: #001d3d;
-  }
-
-  p {
-    color: #ccc;
-    font-size: 1.1rem;
-  }
-
-  .network {
-    position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin: 3rem auto;
-    aspect-ratio: 1 / 1;
-    user-select: none;
-  }
-
-  /* canvas z wiązkami */
-  #beam-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* nie blokuje kliknięć */
-    z-index: 10;
-  }
-
-  .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #007acc;
-    border-radius: 50%;
-    padding: 1.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
-    box-shadow: 0 0 30px rgba(0, 191, 255, 0.6);
-    border: 3px solid #fff;
-    z-index: 20;
-    width: 120px;
-    height: 120px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    user-select: none;
-  }
-
-  .circle-container {
-    position: absolute;
-    width: 130px;
-    height: 160px; /* miejsce pod podpis */
-    text-align: center;
-    transform: translate(-50%, -50%);
-    z-index: 20;
-  }
-
-  .circle-container:hover {
-    z-index: 30;
-  }
-
-  .circle {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    border: 2px solid #00bfff;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    margin: 0 auto;
-    position: relative;
-  }
-
-  .circle:hover {
-    transform: scale(1.2);
-    z-index: 30;
-  }
-
-  .circle img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-  }
-
-  .circle-container .label {
-    font-family: 'Segoe UI', sans-serif;
-    font-weight: bold;
-    font-size: 0.75rem;
-    color: #00bfff;
-    margin-top: 8px;
-    display: block;
-    user-select: none;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    background-color: #001d3d;
-    color: #ccc;
-    font-size: 0.9rem;
-    position: relative;
-    z-index: 50;
-  }
-
-  a {
-    color: #00bfff;
-    text-decoration: none;
-  }
-
-  @media (max-width: 600px) {
     h1 {
-      font-size: 2rem;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #00bfff;
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      z-index: 10;
+    }
+
+    .lang-switch button {
+      background: none;
+      border: 1px solid #00bfff;
+      color: #00bfff;
+      padding: 0.4rem 0.8rem;
+      margin-left: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-switch button.active {
+      background-color: #00bfff;
+      color: #001d3d;
     }
 
     p {
-      font-size: 1rem;
+      color: #ccc;
+      font-size: 1.1rem;
     }
 
-    .circle-container {
-      width: 80px;
-      height: 100px;
+    .network {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 3rem auto;
+      aspect-ratio: 1 / 1;
     }
 
-    .circle {
-      width: 80px;
-      height: 80px;
-    }
-
-    .circle-container .label {
-      font-size: 0.65rem;
+    canvas#beamCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .center {
-      width: 100px;
-      height: 100px;
-      font-size: 1rem;
-      padding: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #007acc;
+      border-radius: 50%;
+      padding: 1.5rem;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: bold;
+      font-size: 1.2rem;
+      box-shadow: 0 0 30px rgba(0, 191, 255, 0.4);
+      border: 3px solid #fff;
+      z-index: 5;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
     }
-  }
-</style>
+
+    .circle-container {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 130px;
+      user-select: none;
+      z-index: 3;
+    }
+
+    .circle {
+      border-radius: 50%;
+      border: 2px solid #00bfff;
+      width: 130px;
+      height: 130px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      cursor: default;
+      box-sizing: border-box;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .circle img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .label {
+      margin-top: 6px;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: bold;
+      font-size: 0.85rem;
+      color: #00bfff;
+      user-select: none;
+    }
+
+    .circle-container:hover .circle {
+      transform: scale(1.2);
+      z-index: 20;
+      border-color: #80d4ff;
+      box-shadow: 0 0 15px #80d4ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #001d3d;
+      color: #ccc;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    a {
+      color: #00bfff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .circle-container {
+        width: 80px;
+      }
+
+      .circle {
+        width: 80px;
+        height: 80px;
+      }
+
+      .label {
+        font-size: 0.7rem;
+      }
+
+      .center {
+        width: 100px;
+        height: 100px;
+        font-size: 1rem;
+        padding: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="lang-switch">
-    <button id="btn-pl" class="active">PL</button>
-    <button id="btn-en">EN</button>
-  </div>
-  <h1 id="site-title">Do It With IT</h1>
-  <p id="site-desc">Realne wsparcie IT dla domu i małych firm</p>
-</header>
-
-<div class="network" id="network">
-  <canvas id="beam-canvas"></canvas>
-  <div class="center">Do It With IT</div>
-
-  <div class="circle-container" data-key="remote">
-    <div class="circle">
-      <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
+  <header>
+    <div class="lang-switch">
+      <button id="btn-pl" class="active">PL</button>
+      <button id="btn-en">EN</button>
     </div>
-    <span class="label"></span>
-  </div>
+    <h1 id="site-title">Do It With IT</h1>
+    <p id="site-desc">Realne wsparcie IT dla domu i małych firm</p>
+  </header>
 
-  <div class="circle-container" data-key="install">
-    <div class="circle">
-      <img src="instalacja_systemu.png" alt="Instalacja systemu" />
+  <div class="network" id="network">
+    <canvas id="beamCanvas"></canvas>
+
+    <div class="center">Do It With IT</div>
+
+    <div class="circle-container" data-key="remote">
+      <div class="circle">
+        <img src="pomoc_zdalna.png" alt="Zdalna pomoc" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="peripherals">
-    <div class="circle">
-      <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
+    <div class="circle-container" data-key="install">
+      <div class="circle">
+        <img src="instalacja_systemu.png" alt="Instalacja systemu" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="business">
-    <div class="circle">
-      <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
+    <div class="circle-container" data-key="peripherals">
+      <div class="circle">
+        <img src="instalacja_peryferiow.png" alt="Instalacja peryferiów" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="home">
-    <div class="circle">
-      <img src="obsluga_domowa.png" alt="Obsługa domowa" />
+    <div class="circle-container" data-key="business">
+      <div class="circle">
+        <img src="obsluga_firmowa.png" alt="Obsługa firmowa" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="network">
-    <div class="circle">
-      <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
+    <div class="circle-container" data-key="home">
+      <div class="circle">
+        <img src="obsluga_domowa.png" alt="Obsługa domowa" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="structural">
-    <div class="circle">
-      <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
+    <div class="circle-container" data-key="network">
+      <div class="circle">
+        <img src="konfiguracja_sieci.png" alt="Konfiguracja sieci" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="fiber">
-    <div class="circle">
-      <img src="swiatlowody.png" alt="Światłowody" />
+    <div class="circle-container" data-key="structural">
+      <div class="circle">
+        <img src="sieci_strukturalne.png" alt="Sieci strukturalne" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
-  </div>
 
-  <div class="circle-container" data-key="monitoring">
-    <div class="circle">
-      <img src="monitoring.png" alt="Monitoring" />
+    <div class="circle-container" data-key="fiber">
+      <div class="circle">
+        <img src="swiatlowody.png" alt="Światłowody" />
+      </div>
+      <div class="label"></div>
     </div>
-    <span class="label"></span>
+
+    <div class="circle-container" data-key="monitoring">
+      <div class="circle">
+        <img src="monitoring.png" alt="Monitoring" />
+      </div>
+      <div class="label"></div>
+    </div>
   </div>
-</div>
 
-<footer>
-  <p id="contact">Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a></p>
-  <p>&copy; 2025 DoItWithIT</p>
-</footer>
+  <footer>
+    <p id="contact">
+      Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel:
+      <a href="tel:+48123">+48 123</a>
+    </p>
+    <p>&copy; 2025 DoItWithIT</p>
+  </footer>
 
-<script>
-  const langButtons = {
-    pl: document.getElementById("btn-pl"),
-    en: document.getElementById("btn-en")
-  };
+  <script>
+    const langButtons = {
+      pl: document.getElementById("btn-pl"),
+      en: document.getElementById("btn-en"),
+    };
 
-  const content = {
-    pl: {
-      siteDesc: "Realne wsparcie IT dla domu i małych firm",
-      contact: 'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
-      circles: {
-        remote: "Zdalna pomoc",
-        install: "Instalacja systemu",
-        network: "Konfiguracja sieci",
-        peripherals: "Instalacja peryferiów",
-        home: "Obsługa domowa",
-        business: "Obsługa firmowa",
-        structural: "Sieci strukturalne",
-        fiber: "Światłowody",
-        monitoring: "Monitoring"
-      }
-    },
-    en: {
-      siteDesc: "Reliable IT support for home and small business",
-      contact: 'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
-      circles: {
-        remote: "Remote help",
-        install: "System installation",
-        network: "Network configuration",
-        peripherals: "Peripherals setup",
-        home: "Home support",
-        business: "Business support",
-        structural: "Structured cabling",
-        fiber: "Optical Fiber",
-        monitoring: "Monitoring"
-      }
+    const content = {
+      pl: {
+        siteDesc: "Realne wsparcie IT dla domu i małych firm",
+        contact:
+          'Kontakt: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Tel: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Zdalna pomoc",
+          install: "Instalacja systemu",
+          network: "Konfiguracja sieci",
+          peripherals: "Instalacja peryferiów",
+          home: "Obsługa domowa",
+          business: "Obsługa firmowa",
+          structural: "Sieci strukturalne",
+          fiber: "Światłowody",
+          monitoring: "Monitoring",
+        },
+      },
+      en: {
+        siteDesc: "Reliable IT support for home and small business",
+        contact:
+          'Contact: <a href="mailto:kontakt@doitwith.it">kontakt@doitwith.it</a> | Phone: <a href="tel:+48123">+48 123</a>',
+        circles: {
+          remote: "Remote help",
+          install: "System installation",
+          network: "Network configuration",
+          peripherals: "Peripherals setup",
+          home: "Home support",
+          business: "Business support",
+          structural: "Structured cabling",
+          fiber: "Optical Fiber",
+          monitoring: "Monitoring",
+        },
+      },
+    };
+
+    function setLanguage(lang) {
+      document.getElementById("site-desc").textContent = content[lang].siteDesc;
+      document.getElementById("contact").innerHTML = content[lang].contact;
+
+      document.querySelectorAll(".circle-container").forEach((container) => {
+        const key = container.dataset.key;
+        const label = container.querySelector(".label");
+        if (label && content[lang].circles[key]) {
+          label.textContent = content[lang].circles[key];
+        }
+      });
+
+      Object.keys(langButtons).forEach((l) => {
+        langButtons[l].classList.toggle("active", l === lang);
+      });
     }
-  };
 
-  function setLanguage(lang) {
-    document.getElementById("site-desc").textContent = content[lang].siteDesc;
-    document.getElementById("contact").innerHTML = content[lang].contact;
+    const network = document.getElementById("network");
+    const beamCanvas = document.getElementById("beamCanvas");
+    const ctx = beamCanvas.getContext("2d");
 
-    document.querySelectorAll(".circle-container").forEach(el => {
-      const key = el.dataset.key;
-      const label = el.querySelector(".label");
-      if (label && content[lang].circles[key]) {
-        label.textContent = content[lang].circles[key];
+    let targets = [];
+
+    function positionCircles() {
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const radius = Math.min(centerX, centerY) - 100; // trochę większy margines
+
+      const circles = Array.from(
+        network.querySelectorAll(".circle-container:not(.center)")
+      );
+
+      // Pomoc zdalna (remote) na górze - ustawiamy jej index 0 na 12:00
+      // Reszta okręgów ułożona równomiernie wokół okręgu
+
+      // Znajdź index remote
+      const remoteIndex = circles.findIndex(
+        (c) => c.dataset.key === "remote"
+      );
+      if (remoteIndex === -1) return;
+
+      // Przesuń remote na początek tablicy
+      if (remoteIndex > 0) {
+        const remote = circles.splice(remoteIndex, 1)[0];
+        circles.unshift(remote);
       }
+
+      const angleStep = (2 * Math.PI) / circles.length;
+
+      circles.forEach((container, i) => {
+        const angle = i * angleStep - Math.PI / 2; // -90 stopni, by remote był u góry
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+        container.style.left = x + "px";
+        container.style.top = y + "px";
+      });
+
+      // Przygotuj cele wiązek dla animacji
+      targets = circles.map((container) => {
+        const box = container.getBoundingClientRect();
+        const parentBox = network.getBoundingClientRect();
+        const x = box.left - parentBox.left + box.width / 2;
+        const y = box.top - parentBox.top + box.height / 2;
+        return { x, y };
+      });
+
+      // Dostosuj rozmiar canvas do div.network
+      beamCanvas.width = rect.width;
+      beamCanvas.height = rect.height;
+    }
+
+    function drawBeam(x1, y1, x2, y2) {
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+      const length = Math.sqrt(dx * dx + dy * dy);
+
+      const segments = 40; // ile segmentów "0" i "1"
+      const speed = 60; // px per second prędkość animacji
+
+      const now = performance.now();
+      const offset = ((now / 1000) * speed) % length;
+
+      ctx.lineCap = "round";
+      ctx.lineWidth = 3;
+
+      // Gradient jasno-niebieski (jak środkowy okrąg)
+      const gradient = ctx.createLinearGradient(x1, y1, x2, y2);
+      gradient.addColorStop(0, "rgba(0, 191, 255, 0.8)");
+      gradient.addColorStop(1, "rgba(0, 191, 255, 0.1)");
+
+      ctx.strokeStyle = gradient;
+
+      ctx.beginPath();
+
+      for (let i = 0; i < segments; i++) {
+        const segmentLength = length / segments;
+        const pos = (i * segmentLength + offset) % length;
+
+        const tStart = pos / length;
+        const tEnd = (pos + segmentLength / 2) / length;
+
+        // Pozycje segmentów na linii
+        const xStart = x1 + dx * tStart;
+        const yStart = y1 + dy * tStart;
+        const xMid = x1 + dx * (tStart + (tEnd - tStart) / 2);
+        const yMid = y1 + dy * (tStart + (tEnd - tStart) / 2);
+        const xEnd = x1 + dx * tEnd;
+        const yEnd = y1 + dy * tEnd;
+
+        // Rysujemy "strumień" cyfr 0-1 jako kreski
+        if (i % 2 === 0) {
+          ctx.moveTo(xStart, yStart);
+          ctx.lineTo(xMid, yMid);
+        } else {
+          ctx.moveTo(xMid, yMid);
+          ctx.lineTo(xEnd, yEnd);
+        }
+      }
+
+      ctx.stroke();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, beamCanvas.width, beamCanvas.height);
+
+      const rect = network.getBoundingClientRect();
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      targets.forEach(({ x, y }) => {
+        drawBeam(centerX, centerY, x, y);
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("load", () => {
+      setLanguage("pl");
+      positionCircles();
+      animate();
     });
 
-    Object.keys(langButtons).forEach(l => {
-      langButtons[l].classList.toggle("active", l === lang);
-    });
-  }
-
-  function positionCircles() {
-    const network = document.querySelector('.network');
-    const containers = document.querySelectorAll('.network .circle-container:not(.center)');
-    const rect = network.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const radius = Math.min(centerX, centerY) - 90;
-    const angleStep = (2 * Math.PI) / containers.length;
-
-    containers.forEach((container, i) => {
-      const angle = i * angleStep - Math.PI / 2; // przesunięcie o -90° żeby pierwszy był na górze
-      const x = centerX + radius * Math.cos(angle);
-      const y = centerY + radius * Math.sin(angle);
-      container.style.left = `${x}px`;
-      container.style.top = `${y}px`;
-    });
-  }
-
-  // === Animacja wiązek świetlnych ===
-
-  const canvas = document.getElementById('beam-canvas');
-  const ctx = canvas.getContext('2d');
-  let width, height, centerX, centerY;
-  let targets = [];
-
-  // Przygotowanie wiązek — start i końcowe punkty (od środka do okręgów)
-  function prepareTargets() {
-    const network = document.getElementById('network');
-    const rect = network.getBoundingClientRect();
-    width = rect.width;
-    height = rect.height;
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
-
-    centerX = width / 2;
-    centerY = height / 2;
-
-    targets = [];
-    document.querySelectorAll('.circle-container:not(.center)').forEach(container => {
-      const box = container.getBoundingClientRect();
-      // pozycja względem canvas (network container)
-      const parentBox = network.getBoundingClientRect();
-      const x = box.left - parentBox.left + box.width/2;
-      const y = box.top - parentBox.top + box.height/2;
-      targets.push({ x, y, offset: Math.random() * 1000 });
-    });
-  }
-
-  // Funkcja rysująca jedną wiązkę
-  function drawBeam(x1, y1, x2, y2, timeOffset) {
-    // Tworzymy animowany gradient liniowy wzdłuż linii
-    // gradient przesuwany poziomo imitujący przepływ (matrix)
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-    const length = Math.sqrt(dx * dx + dy * dy);
-    const angle = Math.atan2(dy, dx);
-
-    ctx.save();
-    ctx.translate(x1, y1);
-    ctx.rotate(angle);
-
-    // Animacja przesunięcia gradientu wzdłuż wiązki
-    const speed = 150; // px / sek
-    const offset = (performance.now() / 1000 * speed + timeOffset) % length;
-
-    // Gradient od środka (jasny błękit) do półprzezroczystego na końcu
-    const grad = ctx.createLinearGradient(offset - 20, 0, offset + 20, 0);
-    grad.addColorStop(0, 'rgba(0, 191, 255, 0)');
-    grad.addColorStop(0.3, 'rgba(0, 191, 255, 0.7)');
-    grad.addColorStop(0.5, 'rgba(0, 191, 255, 1)');
-    grad.addColorStop(0.7, 'rgba(0, 191, 255, 0.7)');
-    grad.addColorStop(1, 'rgba(0, 191, 255, 0)');
-
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 3;
-    ctx.lineCap = 'round';
-
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(length, 0);
-    ctx.stroke();
-
-    ctx.restore();
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, width, height);
-
-    // Rysuj każdą wiązkę świetlną z animacją
-    targets.forEach(({x, y, offset}) => {
-      drawBeam(centerX, centerY, x, y, offset);
+    window.addEventListener("resize", () => {
+      positionCircles();
     });
 
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('load', () => {
-    positionCircles();
-    setLanguage('pl');
-    prepareTargets();
-    animate();
-  });
-
-  window.addEventListener('resize', () => {
-    positionCircles();
-    prepareTargets();
-  });
-
-  langButtons.pl.addEventListener('click', () => setLanguage('pl'));
-  langButtons.en.addEventListener('click', () => setLanguage('en'));
-</script>
+    langButtons.pl.addEventListener("click", () => setLanguage("pl"));
+    langButtons.en.addEventListener("click", () => setLanguage("en"));
+  </script>
 </body>
 </html>
